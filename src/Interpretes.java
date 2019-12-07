@@ -14,6 +14,16 @@ public class Interpretes {
         this.listInterpretes = new ArrayList<>();
     }
 
+    /**
+     * Ajoute un interprete a la liste des interpretes
+     * Les doublons sont possibles
+     *
+     * @param inter
+     * @return true comme specifie dans ArrayList.add(E e)
+     */
+    public boolean ajouterEnFin(String inter){
+        return this.listInterpretes.add(inter);
+    }
 
 
 }
