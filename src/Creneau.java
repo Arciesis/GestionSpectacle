@@ -103,7 +103,7 @@ public class Creneau {
      * @param c le creneau existant
      * @return true si le creneau est placable et false sinon
      */
-    public boolean estPlassable(Creneau c) {
+    public boolean estPlacable(Creneau c) {
         if (c.heureFin.getHeures() <= this.heureDebut.getHeures() || c.heureDebut.getHeures()
                 >= this.heureFin.getHeures()) {
             if (c.heureFin.getMinutes() <= this.heureDebut.getMinutes() || c.heureDebut.getMinutes() >=
