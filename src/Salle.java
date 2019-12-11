@@ -35,11 +35,18 @@ public class Salle {
 
 
     //auto incrémentation du numéro de salle
-    static {numeroSuvivant=10;}
-    {this.numéro=numeroSuvivant; numeroSuvivant+=10;}
+    static {
+        numeroSuvivant = 10;
+    }
+
+    {
+        this.numéro = numeroSuvivant;
+        numeroSuvivant += 10;
+    }
 
     /**
      * constructeur de la salle
+     *
      * @param nom
      * @param places
      * @param tarif
@@ -53,7 +60,6 @@ public class Salle {
 
 
     /**
-     *
      * @return numero
      */
     public int getNuméro() {
@@ -61,7 +67,6 @@ public class Salle {
     }
 
     /**
-     *
      * @return nom
      */
     public String getNom() {
@@ -69,7 +74,6 @@ public class Salle {
     }
 
     /**
-     *
      * @return place
      */
     public int getPlaces() {
@@ -77,7 +81,6 @@ public class Salle {
     }
 
     /**
-     *
      * @return tarif
      */
     public float getTarif() {
@@ -85,7 +88,6 @@ public class Salle {
     }
 
     /**
-     *
      * @return LesCreneauOccupes
      */
     public SortedMap<Integer, Set<Creneau>> getLesCreneauxOccupes() {
@@ -93,7 +95,6 @@ public class Salle {
     }
 
     /**
-     *
      * @param nom
      */
     public void setNom(String nom) {
@@ -101,7 +102,6 @@ public class Salle {
     }
 
     /**
-     *
      * @param places
      */
     public void setPlaces(int places) {
@@ -109,7 +109,6 @@ public class Salle {
     }
 
     /**
-     *
      * @param tarif
      */
     public void setTarif(float tarif) {
@@ -129,18 +128,18 @@ public class Salle {
 
     /**
      * test si la salle est disponible sur le creneau passé en paramètre
+     *
      * @param c
      * @return
      */
     public boolean estDisponible(Creneau c) {
-
         //on creer un iterateur pour iterer sur les keys
-        Iterator<Integer> it = LesCreneauxOccupes.keySet().iterator();
-        while(it.hasNext()){
-            int jour= it.next();
+        Iterator<Integer> it = this.LesCreneauxOccupes.keySet().iterator();
+        while (it.hasNext()) {
+            int jour = it.next();
 
             //on test si la clé jour du TreeMap correspond au jour du créneau
-            if(jour==c.getJour()){
+            if (jour == c.getJour()) {
 
                 // on récupère la valeur de la clé si celle ci correspond au jour
                 Set<Creneau> listeCreneauJourJ = LesCreneauxOccupes.get(jour);
@@ -149,12 +148,12 @@ public class Salle {
                 Iterator<Creneau> itCreneaux = listeCreneauJourJ.iterator();
 
                 // on itère sur les différents créneau du "Set<Creneau>"
-                while (itCreneaux.hasNext()){
+                while (itCreneaux.hasNext()) {
                     Creneau CreneauxDeLaListe = itCreneaux.next();
 
 
                     // on test si les le créneau n'est pas placable
-                    if (!c.estPlacable(CreneauxDeLaListe)){
+                    if (!c.estPlacable(CreneauxDeLaListe)) {
                         return false;
 
                     }
@@ -164,5 +163,26 @@ public class Salle {
         }
         return true;
     }
+
+    public boolean ajouterCreneau(Creneau c) {
+        Set<Integer> Mykey = this.LesCreneauxOccupes.keySet();
+        if(Mykey.contains(c.getJour())){
+            if(estDisponible(c)){
+                Set<Creneau> MyValue = this.LesCreneauxOccupes.get(c.getJour());
+                return MyValue.add(c);
+            }else {
+                return false;
+            }
+        }
+        else {
+            Set<Creneau> mySet = new TreeSet<Creneau>();
+            mySet.add(c);
+            LesCreneauxOccupes.put(c.getJour(),mySet);
+            return true;
+        }
+
+
+    }
+
 }
 
