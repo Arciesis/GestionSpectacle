@@ -112,8 +112,8 @@ public class Salle {
      * @param c
      * @return
      */
-//    public boolean estDisponible(Creneau c) {
-//
-//
-//    }
+    public boolean estDisponible(Creneau c) {
+
+
+    }
 }

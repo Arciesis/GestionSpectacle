@@ -91,7 +91,7 @@ public class Creneau {
             duree = ((this.heureFin.getHeures() - this.heureDebut.getHeures()) * 60
                     + this.heureFin.getMinutes() - this.heureDebut.getMinutes());
         } else {
-            duree = (24 - heureDebut.getHeures() - (0 - heureDebut.getMinutes())
+            duree = (((24 - heureDebut.getHeures()) * 60) + (0 - heureDebut.getMinutes())
                     + heureFin.getHeures() + heureFin.getMinutes());
         }
         return duree;
