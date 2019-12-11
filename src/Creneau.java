@@ -1,6 +1,6 @@
 import java.security.InvalidParameterException;
 
-public class Creneau {
+public class Creneau implements Comparable<Creneau> {
 
     /**
      * jour de la semaine compris entre 1 et 7
@@ -86,9 +86,20 @@ public class Creneau {
      * @return un Integer du nombre de minutes du Creneau
      */
     public int calculerDuree() {
-        int duree = ((this.heureFin.getHeures() - this.heureDebut.getHeures()) * 60 + this.heureFin.getMinutes() -
-                this.heureDebut.getMinutes());
+        int duree=0;
+        if (! (heureDebut.getHeures() > heureFin.getHeures())) {
+            duree = ((this.heureFin.getHeures() - this.heureDebut.getHeures()) * 60
+                    + this.heureFin.getMinutes() - this.heureDebut.getMinutes());
+        } else {
+            duree = (24 - heureDebut.getHeures() - (0 - heureDebut.getMinutes())
+                    + heureFin.getHeures() + heureFin.getMinutes());
+        }
+        return duree;
 
     }
 
+    @Override
+    public int compareTo(Creneau o) {
+        return 0;
+    }
 }
