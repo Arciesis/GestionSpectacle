@@ -14,7 +14,15 @@ public class Creneau {
      * respectivement 1 = lundi etc...
      */
     private int jour;
+
+    /**
+     * Champ representant l'horaire de fin du creneau
+     */
     private Horaire heureFin;
+
+    /**
+     * Champ representant l'Horaire de Debut
+     */
     private Horaire heureDebut;
 
     static {nextIdCreneau=1;}
@@ -23,9 +31,9 @@ public class Creneau {
 
     /**
      * Constructeur de laq classe Creneau
-     * @param jour
-     * @param heureDebut
-     * @param heureFin
+     * @param jour le jour de la semaine compris entre 1 et 7
+     * @param heureDebut l'heure de debut du creneau
+     * @param heureFin l'heure de fin du creneau
      */
     public Creneau(int jour, Horaire heureDebut, Horaire heureFin){
         assert jour >= 1 && jour <= 7;
