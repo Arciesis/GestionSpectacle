@@ -14,8 +14,8 @@ public class Creneau {
      * respectivement 1 = lundi etc...
      */
     private int jour;
-    private LocalDateTime heureFin;
-    private LocalDateTime heureDebut;
+    private Horaire heureFin;
+    private Horaire heureDebut;
 
     static {nextIdCreneau=1;}
     {idCreneau=nextIdCreneau; nextIdCreneau++;}
@@ -27,7 +27,7 @@ public class Creneau {
      * @param heureDebut
      * @param heureFin
      */
-    public Creneau(int jour, LocalDateTime heureDebut, LocalDateTime heureFin){
+    public Creneau(int jour, Horaire heureDebut, Horaire heureFin){
         assert jour >= 1 && jour <= 7;
         this.jour=jour;
         this.heureDebut=heureDebut;
