@@ -21,19 +21,21 @@ public class Creneau {
 
     /**
      * Constructeur de laq classe Creneau
-     * @param jour le jour de la semaine compris entre 1 et 7
+     *
+     * @param jour       le jour de la semaine compris entre 1 et 7
      * @param heureDebut l'heure de debut du creneau
-     * @param heureFin l'heure de fin du creneau
+     * @param heureFin   l'heure de fin du creneau
      */
-    public Creneau(int jour, Horaire heureDebut, Horaire heureFin){
+    public Creneau(int jour, Horaire heureDebut, Horaire heureFin) {
         assert jour >= 1 && jour <= 7;
-        this.jour=jour;
-        this.heureDebut=heureDebut;
-        this.heureFin=heureFin;
+        this.jour = jour;
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
     }
 
     /**
      * getter du champ jour
+     *
      * @return le jour du creneau
      */
     public int getJour() {
@@ -42,6 +44,7 @@ public class Creneau {
 
     /**
      * getter du champ HeureFin
+     *
      * @return l'oraire de fin du creneau
      */
     public Horaire getHeureFin() {
@@ -50,6 +53,7 @@ public class Creneau {
 
     /**
      * getter du champ heureDebut
+     *
      * @return l'Horaire de debut du creneau
      */
     public Horaire getHeureDebut() {
@@ -73,6 +77,17 @@ public class Creneau {
         return jour == creneau.jour &&
                 heureFin.equals(creneau.heureFin) &&
                 heureDebut.equals(creneau.heureDebut);
+    }
+
+
+    /**
+     * Methode de calcul de la duree du creneau
+     *
+     * @return un Integer du nombre de minutes du Creneau
+     */
+    public int calculerDuree() {
+        return ((this.heureFin.getHeures() - this.heureDebut.getHeures()) * 60 + this.heureFin.getMinutes() -
+                this.heureDebut.getMinutes());
     }
 
 }
