@@ -164,5 +164,24 @@ public class Salle {
         }
         return true;
     }
+
+    /**
+     * Retourne true si la sortedMap contient l'entier
+     *
+     * @param jour le jour a tester
+     * @return true si il n'y a pas de creneau ce jour et false sinon
+     */
+    public boolean pasDeCreneauCeJour(int jour) {
+        Set<Integer> myKeys = this.LesCreneauxOccupes.keySet();
+        if (myKeys.contains(jour)) {
+            Set<Creneau> myValues = this.LesCreneauxOccupes.get(jour);
+            if (myValues.isEmpty())
+                return true;
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 }
 
