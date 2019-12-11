@@ -134,7 +134,7 @@ public class Salle {
      */
     public boolean estDisponible(Creneau c) {
 
-        //on creer un iterateur pour iterer sur les keys
+        //on cree un iterateur pour iterer sur les keys
         Iterator<Integer> it = LesCreneauxOccupes.keySet().iterator();
         while(it.hasNext()){
             int jour= it.next();
