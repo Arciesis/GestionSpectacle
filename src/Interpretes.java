@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Interpretes {
+
     /**
      * Unique champ de la classe contenant les Interpretes
      */
