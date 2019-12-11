@@ -1,5 +1,4 @@
-import java.time.LocalDateTime;
-import java.util.Objects;
+import java.security.InvalidParameterException;
 
 public class Creneau {
 
@@ -26,9 +25,10 @@ public class Creneau {
      * @param heureDebut l'heure de debut du creneau
      * @param heureFin   l'heure de fin du creneau
      */
-    public Creneau(int jour, Horaire heureDebut, Horaire heureFin) {
-        assert jour >= 1 && jour <= 7;
-        this.jour = jour;
+    public Creneau(int jour, Horaire heureDebut, Horaire heureFin) throws InvalidParameterException {
+        if (jour >= 1 && 7 >= jour){
+            this.jour = jour;
+        } else throw new InvalidParameterException("Jour de la semaine non compris entre 1 et 7");
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
     }
@@ -86,8 +86,9 @@ public class Creneau {
      * @return un Integer du nombre de minutes du Creneau
      */
     public int calculerDuree() {
-        return ((this.heureFin.getHeures() - this.heureDebut.getHeures()) * 60 + this.heureFin.getMinutes() -
+        int duree = ((this.heureFin.getHeures() - this.heureDebut.getHeures()) * 60 + this.heureFin.getMinutes() -
                 this.heureDebut.getMinutes());
+
     }
 
 }
