@@ -1,4 +1,4 @@
-import java.util.Objects;
+import java.security.InvalidParameterException;
 
 public class Horaire {
 
@@ -8,22 +8,27 @@ public class Horaire {
     private int minutes;
 
     /**
-     *  Champ minutes de la classe Horaire representant les heures de l'Horaire
+     * Champ minutes de la classe Horaire representant les heures de l'Horaire
      */
     private int heures;
 
     /**
      * Constructeur de la classe
-     * @param minutes les minutes de l'horaire
-     * @param heures les heures de l'horaire
+     *
+     * @throws InvalidParameterException Si les minutes ou les heures ne sont pas au format 24h/60min
      */
-    public Horaire(int minutes, int heures){
-        this.minutes=minutes;
-        this.heures=heures;
+    public Horaire(int heures, int minutes) throws InvalidParameterException {
+        if ((minutes >= 0 && 59 >= minutes) && (heures >= 0 && 23 >= heures)) {
+            this.minutes = minutes;
+            this.heures = heures;
+        } else {
+            throw new InvalidParameterException("Heures ou minutes invalide dans Horaire.Horaire()");
+        }
     }
 
     /**
      * getter des minutes
+     *
      * @return les minutes de l'horaire
      */
     public int getMinutes() {
@@ -32,6 +37,7 @@ public class Horaire {
 
     /**
      * getter des heures
+     *
      * @return les heures de l'horaire
      */
     public int getHeures() {

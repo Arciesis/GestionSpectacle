@@ -132,7 +132,7 @@ public class Salle {
      * @param c
      * @return
      */
-    public boolean estDisponible(Creneau c){
+    public boolean estDisponible(Creneau c) {
 
         //on creer un iterateur pour iterer sur les keys
         Iterator<Integer> it = LesCreneauxOccupes.keySet().iterator();
