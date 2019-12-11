@@ -3,7 +3,7 @@ import java.util.*;
 public class Salle {
 
     /**
-     * numeroSuivant qui indique de la salle le numero suivant et s'auto incremente
+     * numéroSuivant qui indique le numéro suivant de la salle et s'auto incremente
      */
     protected static int numeroSuvivant;
 
@@ -70,28 +70,48 @@ public class Salle {
 
     /**
      *
-     * @return
+     * @return place
      */
     public int getPlaces() {
         return places;
     }
 
+    /**
+     *
+     * @return tarif
+     */
     public float getTarif() {
         return tarif;
     }
 
+    /**
+     *
+     * @return LesCreneauOccupes
+     */
     public SortedMap<Integer, Set<Creneau>> getLesCreneauxOccupes() {
         return LesCreneauxOccupes;
     }
 
+    /**
+     *
+     * @param nom
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    /**
+     *
+     * @param places
+     */
     public void setPlaces(int places) {
         this.places = places;
     }
 
+    /**
+     *
+     * @param tarif
+     */
     public void setTarif(float tarif) {
         this.tarif = tarif;
     }
@@ -114,6 +134,35 @@ public class Salle {
      */
     public boolean estDisponible(Creneau c){
 
+        //on creer un iterateur pour iterer sur les keys
+        Iterator<Integer> it = LesCreneauxOccupes.keySet().iterator();
+        while(it.hasNext()){
+            int jour= it.next();
 
+            //on test si la clé jour du TreeMap correspond au jour du créneau
+            if(jour==c.getJour()){
+
+                // on récupère la valeur de la clé si celle ci correspond au jour
+                Set<Creneau> listeCreneauJourJ = LesCreneauxOccupes.get(jour);
+
+                // on itère sur la valeur de la clé afin de consulter l'ensemble des créneaux
+                Iterator<Creneau> itCreneaux = listeCreneauJourJ.iterator();
+
+                // on itère sur les différents créneau du "Set<Creneau>"
+                while (itCreneaux.hasNext()){
+                    Creneau CreneauxDeLaListe = itCreneaux.next();
+
+
+                    // on test si les le créneau n'est pas placable
+                    if (!c.estPlacable(CreneauxDeLaListe)){
+                        return false;
+
+                    }
+                }
+
+            }
+        }
+        return true;
     }
 }
+
