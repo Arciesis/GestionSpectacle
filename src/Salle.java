@@ -55,7 +55,7 @@ public class Salle {
         this.nom = nom;
         this.places = places;
         this.tarif = tarif;
-        LesCreneauxOccupes = new TreeMap<Integer, Set<Creneau>>();
+        LesCreneauxOccupes = new TreeMap<Integer, new Set<Creneau>()>;
     }
 
 
@@ -174,8 +174,8 @@ public class Salle {
     public boolean pasDeCreneauCeJour(int jour) {
         Set<Integer> myKeys = this.LesCreneauxOccupes.keySet();
         if (myKeys.contains(jour)) {
-            Set<Creneau> mySet = this.LesCreneauxOccupes.get(jour);
-            if (mySet.isEmpty())
+            Set<Creneau> myValues = this.LesCreneauxOccupes.get(jour);
+            if (myValues.isEmpty())
                 return true;
             return false;
         } else {
