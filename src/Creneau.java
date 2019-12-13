@@ -1,6 +1,6 @@
 import java.security.InvalidParameterException;
 
-public class Creneau {
+public class Creneau implements Comparable<Creneau> {
 
     /**
      * jour de la semaine compris entre 1 et 7
@@ -11,12 +11,12 @@ public class Creneau {
     /**
      * Champ representant l'horaire de fin du creneau
      */
-    private Horaire heureFin;
+    private Horaire heureDebut;
 
     /**
      * Champ representant l'Horaire de Debut
      */
-    private Horaire heureDebut;
+    private Horaire heureFin;
 
     /**
      * Constructeur de laq classe Creneau
