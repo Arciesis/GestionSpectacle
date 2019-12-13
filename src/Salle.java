@@ -130,7 +130,7 @@ public class Salle {
      * test si la salle est disponible sur le creneau passé en paramètre
      *
      * @param c
-     * @return
+     * @return false si le créneau n'est pas placable et true sinon
      */
     public boolean estDisponible(Creneau c) {
 
@@ -153,7 +153,7 @@ public class Salle {
                     Creneau CreneauxDeLaListe = itCreneaux.next();
 
 
-                    // on test si les le créneau n'est pas placable
+                    // on test si le créneau n'est pas placable
                     if (!c.estPlacable(CreneauxDeLaListe)) {
                         return false;
 
@@ -172,9 +172,17 @@ public class Salle {
      * @return true si il n'y a pas de creneau ce jour et false sinon
      */
     public boolean pasDeCreneauCeJour(int jour) {
+
+        // récupération des clé desCreneauOccupes
         Set<Integer> myKeys = this.LesCreneauxOccupes.keySet();
+
+        // vérification de la contenance du jour passé en paramètre
         if (myKeys.contains(jour)) {
+
+            // récupération de la valeur de la clé
             Set<Creneau> myValues = this.LesCreneauxOccupes.get(jour);
+
+            // test si le jour ne contient pas de créneau
             if (myValues.isEmpty())
                 return true;
             return false;
@@ -184,9 +192,20 @@ public class Salle {
 
     }
 
+    /**
+     * permet l'ajout d'un créneau
+     * @param c
+     * @return true si le créneau est ajouté , false sinon
+     */
     public boolean ajouterCreneau(Creneau c) {
+
+        // récupération des clés desCreneauOccupes
         Set<Integer> Mykey = this.LesCreneauxOccupes.keySet();
+
+        // vérification de la contenance du jour passé en paramètre
         if (Mykey.contains(c.getJour())) {
+
+            // test si le créneau est disponible et l'ajoute si oui
             if (estDisponible(c)) {
                 Set<Creneau> MyValue = this.LesCreneauxOccupes.get(c.getJour());
                 return MyValue.add(c);
@@ -194,6 +213,7 @@ public class Salle {
                 return false;
             }
         } else {
+            //sinon créer une nouvelle ligne dans lesCreneauOccupes avec le jour en clé et le créneau en valeur
             Set<Creneau> mySet = new TreeSet<Creneau>();
             mySet.add(c);
             LesCreneauxOccupes.put(c.getJour(), mySet);
