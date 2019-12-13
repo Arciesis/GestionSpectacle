@@ -31,7 +31,7 @@ public class Salle {
      * champ  SortedMap LesCreneauxOccupes representant l'ensembles des crenaux pour chaques
      * jour de la semaine
      */
-    protected SortedMap<Integer, Set<Creneau>> LesCreneauxOccupes;
+    protected SortedMap<Integer, Set<Creneau>> lesCreneauxOccupes;
 
 
     //auto incrémentation du numéro de salle
@@ -55,7 +55,7 @@ public class Salle {
         this.nom = nom;
         this.places = places;
         this.tarif = tarif;
-        LesCreneauxOccupes = new TreeMap<Integer, Set<Creneau>>();
+        lesCreneauxOccupes = new TreeMap<Integer, Set<Creneau>>();
     }
 
 
@@ -91,7 +91,7 @@ public class Salle {
      * @return LesCreneauOccupes
      */
     public SortedMap<Integer, Set<Creneau>> getLesCreneauxOccupes() {
-        return LesCreneauxOccupes;
+        return lesCreneauxOccupes;
     }
 
     /**
@@ -122,7 +122,7 @@ public class Salle {
                 ", nom='" + nom + '\'' +
                 ", places=" + places +
                 ", tarif=" + tarif +
-                ", LesCreneauxOccupes=" + LesCreneauxOccupes +
+                ", LesCreneauxOccupes=" + lesCreneauxOccupes +
                 '}';
     }
 
@@ -135,7 +135,7 @@ public class Salle {
     public boolean estDisponible(Creneau c) {
 
         //on cree un iterateur pour iterer sur les keys
-        Iterator<Integer> it = LesCreneauxOccupes.keySet().iterator();
+        Iterator<Integer> it = lesCreneauxOccupes.keySet().iterator();
         while (it.hasNext()) {
             int jour = it.next();
 
@@ -143,7 +143,7 @@ public class Salle {
             if (jour == c.getJour()) {
 
                 // on récupère la valeur de la clé si celle ci correspond au jour
-                Set<Creneau> listeCreneauJourJ = LesCreneauxOccupes.get(jour);
+                Set<Creneau> listeCreneauJourJ = lesCreneauxOccupes.get(jour);
 
                 // on itère sur la valeur de la clé afin de consulter l'ensemble des créneaux
                 Iterator<Creneau> itCreneaux = listeCreneauJourJ.iterator();
@@ -174,13 +174,13 @@ public class Salle {
     public boolean pasDeCreneauCeJour(int jour) {
 
         // récupération des clé desCreneauOccupes
-        Set<Integer> myKeys = this.LesCreneauxOccupes.keySet();
+        Set<Integer> myKeys = this.lesCreneauxOccupes.keySet();
 
         // vérification de la contenance du jour passé en paramètre
         if (myKeys.contains(jour)) {
 
             // récupération de la valeur de la clé
-            Set<Creneau> myValues = this.LesCreneauxOccupes.get(jour);
+            Set<Creneau> myValues = this.lesCreneauxOccupes.get(jour);
 
             // test si le jour ne contient pas de créneau
             if (myValues.isEmpty())
@@ -200,14 +200,14 @@ public class Salle {
     public boolean ajouterCreneau(Creneau c) {
 
         // récupération des clés desCreneauOccupes
-        Set<Integer> mykey = this.LesCreneauxOccupes.keySet();
+        Set<Integer> mykey = this.lesCreneauxOccupes.keySet();
 
         // vérification de la contenance du jour passé en paramètre
         if (mykey.contains(c.getJour())) {
 
             // test si le créneau est disponible et l'ajoute si oui
             if (estDisponible(c)) {
-                Set<Creneau> myValues = this.LesCreneauxOccupes.get(c.getJour());
+                Set<Creneau> myValues = this.lesCreneauxOccupes.get(c.getJour());
                 return myValues.add(c);
             } else {
                 return false;
@@ -216,7 +216,7 @@ public class Salle {
             //sinon créer une nouvelle ligne dans lesCreneauOccupes avec le jour en clé et le créneau en valeur
             Set<Creneau> mySet = new TreeSet<Creneau>();
             mySet.add(c);
-            LesCreneauxOccupes.put(c.getJour(), mySet);
+            lesCreneauxOccupes.put(c.getJour(), mySet);
             return true;
         }
     }
