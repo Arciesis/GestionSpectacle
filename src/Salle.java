@@ -200,15 +200,15 @@ public class Salle {
     public boolean ajouterCreneau(Creneau c) {
 
         // récupération des clés desCreneauOccupes
-        Set<Integer> Mykey = this.LesCreneauxOccupes.keySet();
+        Set<Integer> mykey = this.LesCreneauxOccupes.keySet();
 
         // vérification de la contenance du jour passé en paramètre
-        if (Mykey.contains(c.getJour())) {
+        if (mykey.contains(c.getJour())) {
 
             // test si le créneau est disponible et l'ajoute si oui
             if (estDisponible(c)) {
-                Set<Creneau> MyValue = this.LesCreneauxOccupes.get(c.getJour());
-                return MyValue.add(c);
+                Set<Creneau> myValues = this.LesCreneauxOccupes.get(c.getJour());
+                return myValues.add(c);
             } else {
                 return false;
             }
