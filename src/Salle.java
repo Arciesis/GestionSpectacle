@@ -25,7 +25,7 @@ public class Salle {
     /**
      * champ tarif generale des places de la salle
      */
-    protected float tarif;
+    protected double tarif;
 
     /**
      * champ  SortedMap LesCreneauxOccupes representant l'ensembles des crenaux pour chaques
@@ -83,7 +83,7 @@ public class Salle {
     /**
      * @return tarif
      */
-    public float getTarif() {
+    public double getTarif() {
         return tarif;
     }
 
@@ -111,7 +111,7 @@ public class Salle {
     /**
      * @param tarif
      */
-    public void setTarif(float tarif) {
+    public void setTarif(double tarif) {
         this.tarif = tarif;
     }
 
@@ -154,7 +154,7 @@ public class Salle {
 
 
                     // on test si le créneau n'est pas placable
-                    if (!c.estPlacable(CreneauxDeLaListe)) {
+                    if (c.compareTo(CreneauxDeLaListe) == 0) {
                         return false;
 
                     }
@@ -194,6 +194,7 @@ public class Salle {
 
     /**
      * permet l'ajout d'un créneau
+     *
      * @param c
      * @return true si le créneau est ajouté , false sinon
      */

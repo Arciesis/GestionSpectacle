@@ -1,4 +1,5 @@
 public abstract class Spectacle {
+    protected int idSpectacle;
     protected String titre;
     protected Interpretes lesInterpretes;
 

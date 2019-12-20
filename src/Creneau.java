@@ -100,6 +100,7 @@ public class Creneau implements Comparable<Creneau> {
 
     /**
      * Test si un creneau est placable apres un creneau existant
+     *
      * @param c le creneau existant
      * @return true si le creneau est placable et false sinon
      */
@@ -111,5 +112,24 @@ public class Creneau implements Comparable<Creneau> {
                 return true;
             } else return false;
         } else return false;
+    }
+
+    @Override
+    public int compareTo(Creneau c) {
+        if (this.jour < c.jour) {
+            return -1;
+        } else if (this.jour > c.jour) {
+            return 1;
+        } else {
+            if ((this.heureDebut.getHeures() == c.heureFin.getHeures() && this.heureDebut.getMinutes() >=
+                    c.heureFin.getMinutes()) || this.heureDebut.getHeures() <= c.heureFin.getHeures()) {
+                return -1;
+            } else if ((this.heureFin.getHeures() == c.heureDebut.getHeures() && this.heureFin.getMinutes() <=
+                    c.heureDebut.getMinutes()) || this.heureFin.getHeures() <= c.heureDebut.getHeures()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
     }
 }
