@@ -51,7 +51,7 @@ public class Salle {
      * @param places
      * @param tarif
      */
-    public Salle(String nom, int places, float tarif) {
+    public Salle(String nom, int places, double tarif) {
         this.nom = nom;
         this.places = places;
         this.tarif = tarif;
@@ -118,11 +118,11 @@ public class Salle {
     @Override
     public String toString() {
         return "Salle{" +
-                "numéro=" + numéro +
-                ", nom='" + nom + '\'' +
-                ", places=" + places +
-                ", tarif=" + tarif +
-                ", LesCreneauxOccupes=" + lesCreneauxOccupes +
+                "\nnuméro=" + numéro +
+                " \nnom='" + nom + '\'' +
+                " \nplaces=" + places +
+                " \ntarif=" + tarif +
+                " \nLesCreneauxOccupes=" + lesCreneauxOccupes +
                 '}';
     }
 

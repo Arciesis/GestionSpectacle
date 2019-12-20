@@ -64,9 +64,9 @@ public class Creneau implements Comparable<Creneau> {
     public String toString() {
         return "Creneau{" +
                 "jour=" + jour +
-                ", heureFin=" + heureFin +
                 ", heureDebut=" + heureDebut +
-                '}';
+                ", heureFin=" + heureFin +
+                "}\n";
     }
 
     @Override
@@ -121,15 +121,26 @@ public class Creneau implements Comparable<Creneau> {
         } else if (this.jour > c.jour) {
             return 1;
         } else {
-            if ((this.heureDebut.getHeures() == c.heureFin.getHeures() && this.heureDebut.getMinutes() >=
-                    c.heureFin.getMinutes()) || this.heureDebut.getHeures() <= c.heureFin.getHeures()) {
+            if (this.heureDebut.getHeures() == c.heureFin.getHeures()) {
+                if (this.heureDebut.getMinutes() >= c.heureFin.getMinutes()) {
+                    return -1;
+                } else return 0;
+            } else if (this.heureFin.getHeures() == c.heureDebut.getHeures()) {
+                if (this.heureFin.getMinutes() <= c.heureDebut.getMinutes()) {
+                    return 1;
+                } else return 0;
+            } else if (this.heureDebut.getHeures() > c.heureFin.getHeures()) {
                 return -1;
-            } else if ((this.heureFin.getHeures() == c.heureDebut.getHeures() && this.heureFin.getMinutes() <=
-                    c.heureDebut.getMinutes()) || this.heureFin.getHeures() <= c.heureDebut.getHeures()) {
+
+            } else if (this.heureFin.getHeures() < c.heureDebut.getHeures()) {
                 return 1;
-            } else {
-                return 0;
-            }
+
+            } else return 0;
+
+
         }
+
+
     }
 }
+

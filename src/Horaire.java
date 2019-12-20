@@ -48,8 +48,8 @@ public class Horaire {
     @Override
     public String toString() {
         return "Horaire{" +
-                "minutes=" + minutes +
-                ", heures=" + heures +
+                "heures=" + heures +
+                " minutes=" + minutes +
                 '}';
     }
 
