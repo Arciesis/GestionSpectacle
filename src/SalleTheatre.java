@@ -40,4 +40,18 @@ public class SalleTheatre extends Salle{
     public double getTarifSuperieur() {
         return tarifSuperieur;
     }
+
+
+    @Override
+    public String toString() {
+        return "SalleTheatre{" +
+                "nbFauteuils=" + nbFauteuils +
+                ", tarifSuperieur=" + tarifSuperieur +
+                ", numéro=" + numéro +
+                ", nom='" + nom + '\'' +
+                ", places=" + places +
+                ", tarif=" + tarif +
+                ", lesCreneauxOccupes=" + lesCreneauxOccupes +
+                '}';
+    }
 }
