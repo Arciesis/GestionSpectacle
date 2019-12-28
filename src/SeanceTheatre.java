@@ -59,4 +59,24 @@ public class SeanceTheatre extends  Seance{
         else
             return 0.0;
     }
+
+    /**
+     * methode permettant de vendre des laces
+     * @param nbre le nombre de places a vendre
+     */
+    public void vendrePlacesTN(int nbre){
+        if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre){
+            super.nbPlacesVenduesTarifNormal += nbre;
+        }
+    }
+
+    /**
+     * methide permettant de vendre des fauteuils
+     * @param nbre le nombre de fauteuils a vendre
+     */
+    public void vendrePlacesFauteuils(int nbre){
+        if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre){
+            this.fauteuilsVendues += nbre;
+        }
+    }
 }

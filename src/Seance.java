@@ -1,3 +1,4 @@
+
 public class Seance {
 
     /**
@@ -43,4 +44,13 @@ public class Seance {
                 ", nbPlacesVenduesTarifNormal=" + nbPlacesVenduesTarifNormal +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seance seance = (Seance) o;
+        return this.leCreneau.equals(seance.leCreneau);
+    }
+
 }

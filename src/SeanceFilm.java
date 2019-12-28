@@ -6,7 +6,7 @@ public class SeanceFilm extends Seance {
     private Salle laSalle;
 
     /**
-     * champ representant le nombre de places vendu a tarif reduit
+     * champ representant le nombre de places vendues a tarif reduit
      */
     private int nbplacesTarifReduit;
 
@@ -59,5 +59,26 @@ public class SeanceFilm extends Seance {
             return this.laSalle.places / (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit);
         else
             return 0.0;
+    }
+
+    /**
+     * methode permettant de vendre des laces
+     * @param nbre le nombre de places a vendre
+     */
+    public void vendrePlacesTN(int nbre){
+        if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre){
+            super.nbPlacesVenduesTarifNormal += nbre;
+        }
+    }
+
+
+    /**
+     * methode permettant de vendre des places a tarif reduit
+     * @param nbre le nombre de places a vendre
+     */
+    public void vendrelacesTR(int nbre){
+        if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre){
+            this.nbplacesTarifReduit += nbre;
+        }
     }
 }
