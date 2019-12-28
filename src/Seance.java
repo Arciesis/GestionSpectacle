@@ -35,4 +35,12 @@ public class Seance {
     public int getNbPlacesVenduesTarifNormal() {
         return nbPlacesVenduesTarifNormal;
     }
+
+    @Override
+    public String toString() {
+        return "Seance{" +
+                "leCreneau=" + leCreneau +
+                ", nbPlacesVenduesTarifNormal=" + nbPlacesVenduesTarifNormal +
+                '}';
+    }
 }
