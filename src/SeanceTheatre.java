@@ -49,4 +49,14 @@ public class SeanceTheatre extends  Seance{
                 ", nbPlacesVenduesTarifNormal=" + nbPlacesVenduesTarifNormal +
                 '}';
     }
+    /**
+     * Calcul le taux de remplissage d'une seance de film
+     * @return le taux de remplissage du film
+     */
+    public double tauxRemplissage(){
+        if (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues != 0)
+            return this.laSalleTheatre.places / (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues);
+        else
+            return 0.0;
+    }
 }
