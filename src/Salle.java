@@ -13,7 +13,7 @@ public class Salle {
     protected int numéro;
 
     /**
-     * champ nom de la salle
+     * le nom de la salle
      */
     protected String nom;
 
