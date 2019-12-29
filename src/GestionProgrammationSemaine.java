@@ -132,8 +132,16 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
     @Override
-    public void ajouterPiece(String titre, String metteurEnScene, int nbEntractes) {
-
+    public void ajouterPiece(String titre, String metteurEnScene, int nbEntractes) throws IllegalArgumentException {
+        PieceTheatre pt = new PieceTheatre(titre,metteurEnScene,nbEntractes);
+        try {
+            if (!lesPieces.containsKey(pt.getIdPieceTheatre())) {
+                lesPieces.put(pt.getIdPieceTheatre(), pt);
+            } else
+                throw new IllegalArgumentException("la piece de theatre existe deja");
+        } catch (ClassCastException | NullPointerException e1) {
+            e1.getMessage();
+        }
     }
 
     @Override

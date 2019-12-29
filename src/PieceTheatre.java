@@ -41,7 +41,7 @@ public class PieceTheatre extends Spectacle {
     }
 
     {
-        this.idSpectacle = idPieceTheatreSuivant;
+        this.idPieceTheatre = idPieceTheatreSuivant;
         idPieceTheatreSuivant += 1;
     }
 
@@ -71,5 +71,17 @@ public class PieceTheatre extends Spectacle {
      */
     public int getEntractes(){
         return this.entractes;
+    }
+
+    @Override
+    public String toString() {
+        return "PieceTheatre{" +
+                "metteurEnScene='" + metteurEnScene + '\'' +
+                ", idPieceTheatre=" + idPieceTheatre +
+                ", entractes=" + entractes +
+                ", titre='" + titre + '\'' +
+                ", lesInterpretes=" + lesInterpretes +
+                ", GestionSeanceSpectacle=" + GestionSeanceSpectacle +
+                '}';
     }
 }
