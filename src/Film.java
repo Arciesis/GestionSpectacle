@@ -33,6 +33,12 @@ public class Film extends Spectacle {
         this.duree = duree;
     }
 
+    public Film(String titre, String realisateur, int duree) {
+        super(titre);
+        this.realisateur = realisateur;
+        this.duree = duree;
+    }
+
     // Blocs d'initialisation de l'id du film
     // Commence a 100 et s'incremente de 1
     static {

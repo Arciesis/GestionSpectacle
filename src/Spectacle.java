@@ -17,4 +17,8 @@ public abstract class Spectacle {
             this.lesInterpretes.ajouterEnFin(item);
         }
     }
+
+    public Spectacle(String titre) {
+        this.titre = titre;
+    }
 }

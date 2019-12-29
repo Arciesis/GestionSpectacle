@@ -1,7 +1,8 @@
 public class GestionProgrammationSemaine implements IProgrammationSemaine {
+
     @Override
     public Film rechercherFilm(String titre, String realisateur) {
-        return null;
+
     }
 
     @Override
