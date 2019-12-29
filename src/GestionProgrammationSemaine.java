@@ -120,6 +120,14 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public PieceTheatre rechercherPiece(String titre, String metteurEnScene) {
+        Iterator<Integer> it = lesPieces.keySet().iterator();
+        while (it.hasNext()) {
+            int lIdDeLaPiece = it.next();
+
+            if (lesPieces.get(lIdDeLaPiece).titre == titre && lesPieces.get(lIdDeLaPiece).getMetteurEnScene() == metteurEnScene) {
+                return lesFilms.get(lIdDeLaPiece);
+            }
+        }
         return null;
     }
 
