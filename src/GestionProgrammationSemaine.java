@@ -78,10 +78,8 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
                 lesFilms.put(f.getIdFilm(), f);
             } else
                 throw new IllegalArgumentException("Le film existe deja");
-        } catch (ClassCastException e1) {
+        } catch (ClassCastException | NullPointerException e1) {
             e1.getMessage();
-        } catch (NullPointerException e2) {
-            e2.getMessage();
         }
     }
 
@@ -118,7 +116,6 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         if (estFilm && estPiece) {
             throw new IllegalArgumentException("Spectacle inexistant");
         }
-
     }
 
     @Override

@@ -82,4 +82,10 @@ public class Interpretes {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Interpretes{" +
+                "listInterpretes=" + listInterpretes +
+                '}';
+    }
 }
