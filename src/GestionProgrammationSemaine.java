@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -54,11 +55,18 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         lesSallesTheatres.put(st3.numéro, st3);
         lesSallesTheatres.put(st4.numéro, st4);
 
-
     }
 
     @Override
     public Film rechercherFilm(String titre, String realisateur) {
+        Iterator<Integer> it = lesFilms.keySet().iterator();
+        while (it.hasNext()) {
+            int lIdDuFilm = it.next();
+
+            if (lesFilms.get(lIdDuFilm).titre == titre && lesFilms.get(lIdDuFilm).getRealisateur() == realisateur) {
+                return lesFilms.get(lIdDuFilm);
+            }
+        }
         return null;
     }
 
@@ -67,7 +75,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         Film f = new Film(titre, realisateur, duree);
         try {
             if (!lesFilms.containsKey(f.getIdFilm())) {
-                lesFilms.put(f.getIdFilm(),f);
+                lesFilms.put(f.getIdFilm(), f);
             } else
                 throw new IllegalArgumentException("Le film existe deja");
         } catch (ClassCastException e1) {

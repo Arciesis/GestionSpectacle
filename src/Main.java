@@ -6,7 +6,10 @@ public class Main {
         // write your code here
        GestionProgrammationSemaine gps = new GestionProgrammationSemaine();
        gps.ajouterFilm("le titre d'un film","J.J Abrams", 150);
-       System.out.println(gps.toString());
+       //System.out.println(gps.toString());
+       System.out.println(gps.rechercherFilm("le titre d'un film","J.J Abrams"));
+        System.out.println(gps.rechercherFilm("le titre du film","J.J Abrams"));
+
 
 
     }
