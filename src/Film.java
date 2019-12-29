@@ -84,4 +84,16 @@ public class Film extends Spectacle {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "idFilm=" + idFilm +
+                ", realisateur='" + realisateur + '\'' +
+                ", duree=" + duree +
+                ", titre='" + titre + '\'' +
+                ", lesInterpretes=" + lesInterpretes +
+                ", GestionSeanceSpectacle=" + GestionSeanceSpectacle +
+                '}';
+    }
 }

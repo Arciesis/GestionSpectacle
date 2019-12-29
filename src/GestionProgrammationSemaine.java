@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -54,11 +55,18 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         lesSallesTheatres.put(st3.numéro, st3);
         lesSallesTheatres.put(st4.numéro, st4);
 
-
     }
 
     @Override
     public Film rechercherFilm(String titre, String realisateur) {
+        Iterator<Integer> it = lesFilms.keySet().iterator();
+        while (it.hasNext()) {
+            int lIdDuFilm = it.next();
+
+            if (lesFilms.get(lIdDuFilm).titre == titre && lesFilms.get(lIdDuFilm).getRealisateur() == realisateur) {
+                return lesFilms.get(lIdDuFilm);
+            }
+        }
         return null;
     }
 
@@ -67,23 +75,59 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         Film f = new Film(titre, realisateur, duree);
         try {
             if (!lesFilms.containsKey(f.getIdFilm())) {
-                lesFilms.put(f.getIdFilm(),f);
+                lesFilms.put(f.getIdFilm(), f);
             } else
                 throw new IllegalArgumentException("Le film existe deja");
-        } catch (ClassCastException e1) {
+        } catch (ClassCastException | NullPointerException e1) {
             e1.getMessage();
-        } catch (NullPointerException e2) {
-            e2.getMessage();
         }
     }
 
     @Override
-    public void ajouterInterprete(int numSpectacle, String interprete) {
+    public void ajouterInterprete(int numSpectacle, String interprete) throws IllegalArgumentException {
+        Iterator<Integer> itFilm = lesFilms.keySet().iterator();
+        boolean estFilm = true;
+        boolean estPiece = true;
 
+        // On itere sur les films pour tester l'existance de l'id du film
+        while (itFilm.hasNext()) {
+            int lIdDuFilm = itFilm.next();
+            if (lIdDuFilm == numSpectacle) {
+                lesFilms.get(lIdDuFilm).lesInterpretes.ajouterEnFin(interprete);
+                // On modifie le boolean si on a trouve une concordance
+                estFilm = false;
+            }
+        }
+
+        Iterator<Integer> itPiece = lesPieces.keySet().iterator();
+
+        // On itere sur les pieces pour tester l'existance de l'id de la piece
+        // on test egalement si on a deja trouve une concordance, si c'est le cas on entre pas
+        while (itPiece.hasNext() && estFilm) {
+            int lIdDeLaPiece = itPiece.next();
+            if (lIdDeLaPiece == numSpectacle) {
+                lesPieces.get(lIdDeLaPiece).lesInterpretes.ajouterEnFin(interprete);
+                // On modifie le boolean si on a trouve une concordance
+                estPiece = false;
+            }
+        }
+
+        // On teste si aucune concordance n'a ete trouve et si c'est le cas on leve nu Exception
+        if (estFilm && estPiece) {
+            throw new IllegalArgumentException("Spectacle inexistant");
+        }
     }
 
     @Override
     public PieceTheatre rechercherPiece(String titre, String metteurEnScene) {
+        Iterator<Integer> it = lesPieces.keySet().iterator();
+        while (it.hasNext()) {
+            int lIdDeLaPiece = it.next();
+
+            if (lesPieces.get(lIdDeLaPiece).titre == titre && lesPieces.get(lIdDeLaPiece).getMetteurEnScene() == metteurEnScene) {
+                return lesPieces.get(lIdDeLaPiece);
+            }
+        }
         return null;
     }
 
@@ -235,5 +279,15 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     @Override
     public Spectacle getSpectacle(int numSpectacle) {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "GestionProgrammationSemaine{" +
+                "lesSalles=" + lesSalles +
+                ", lesSallesTheatres=" + lesSallesTheatres +
+                ", lesFilms=" + lesFilms +
+                ", lesPieces=" + lesPieces +
+                '}';
     }
 }
