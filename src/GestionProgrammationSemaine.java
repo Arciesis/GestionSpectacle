@@ -86,7 +86,38 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
     @Override
-    public void ajouterInterprete(int numSpectacle, String interprete) {
+    public void ajouterInterprete(int numSpectacle, String interprete) throws IllegalArgumentException {
+        Iterator<Integer> itFilm = lesFilms.keySet().iterator();
+        boolean estFilm = true;
+        boolean estPiece = true;
+
+        // On itere sur les films pour tester l'existance de l'id du film
+        while (itFilm.hasNext()) {
+            int lIdDuFilm = itFilm.next();
+            if (lIdDuFilm == numSpectacle) {
+                lesFilms.get(lIdDuFilm).lesInterpretes.ajouterEnFin(interprete);
+                // On modifie le boolean si on a trouve une concordance
+                estFilm = false;
+            }
+        }
+
+        Iterator<Integer> itPiece = lesPieces.keySet().iterator();
+
+        // On itere sur les pieces pour tester l'existance de l'id de la piece
+        // on test egalement si on a deja trouve une concordance, si c'est le cas on entre pas
+        while (itPiece.hasNext() && estFilm) {
+            int lIdDeLaPiece = itPiece.next();
+            if (lIdDeLaPiece == numSpectacle) {
+                lesPieces.get(lIdDeLaPiece).lesInterpretes.ajouterEnFin(interprete);
+                // On modifie le boolean si on a trouve une concordance
+                estPiece = false;
+            }
+        }
+
+        // On teste si aucune concordance n'a ete trouve et si c'est le cas on leve nu Exception
+        if (estFilm && estPiece) {
+            throw new IllegalArgumentException("Spectacle inexistant")
+        }
 
     }
 
