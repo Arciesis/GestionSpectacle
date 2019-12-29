@@ -116,7 +116,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
         // On teste si aucune concordance n'a ete trouve et si c'est le cas on leve nu Exception
         if (estFilm && estPiece) {
-            throw new IllegalArgumentException("Spectacle inexistant")
+            throw new IllegalArgumentException("Spectacle inexistant");
         }
 
     }
