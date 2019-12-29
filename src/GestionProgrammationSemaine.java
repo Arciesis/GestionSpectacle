@@ -3,11 +3,30 @@ import java.util.TreeMap;
 
 public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
+    /**
+     * champ representant la liste des salles standards
+     */
     private SortedMap<Integer, Salle> lesSalles;
+
+    /**
+     * champ representant la liste des salles de theatre
+     */
     private SortedMap<Integer, SalleTheatre> lesSallesTheatres;
+
+    /**
+     * champ representant la liste des films
+     */
     private SortedMap<Integer, Film> lesFilms;
+
+    /**
+     * chmap representant la liste des piceces de theatre
+     */
     private SortedMap<Integer, PieceTheatre> lesPieces;
 
+    /**
+     * Constructeur de la classe
+     * Initialise 4 salles standards et 4 salle de theatre
+     */
     public GestionProgrammationSemaine() {
         Salle s1 = new Salle("salle n1", 250, 10.70);
         Salle s2 = new Salle("salle n2", 250, 10.70);
@@ -25,15 +44,15 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         this.lesFilms = new TreeMap<>();
         this.lesPieces = new TreeMap<>();
 
-        lesSalles.put(s1.numéro,s1);
-        lesSalles.put(s2.numéro,s2);
-        lesSalles.put(s3.numéro,s3);
-        lesSalles.put(s4.numéro,s4);
+        lesSalles.put(s1.numéro, s1);
+        lesSalles.put(s2.numéro, s2);
+        lesSalles.put(s3.numéro, s3);
+        lesSalles.put(s4.numéro, s4);
 
-        lesSallesTheatres.put(st1.numéro,st1);
-        lesSallesTheatres.put(st2.numéro,st2);
-        lesSallesTheatres.put(st3.numéro,st3);
-        lesSallesTheatres.put(st4.numéro,st4);
+        lesSallesTheatres.put(st1.numéro, st1);
+        lesSallesTheatres.put(st2.numéro, st2);
+        lesSallesTheatres.put(st3.numéro, st3);
+        lesSallesTheatres.put(st4.numéro, st4);
 
 
     }
@@ -44,8 +63,18 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
     @Override
-    public void ajouterFilm(String titre, String realisateur, int duree) {
-
+    public void ajouterFilm(String titre, String realisateur, int duree) throws IllegalArgumentException {
+        Film f = new Film(titre, realisateur, duree);
+        try {
+            if (!lesFilms.containsKey(f.getIdFilm())) {
+                lesFilms.put(f);
+            } else
+                throw IllegalArgumentException("Le film existe deja")
+        } catch (ClassCastException e1) {
+            e1.getMessage()
+        } catch (NullPointerException e2) {
+            e2.getMessage();
+        }
     }
 
     @Override
