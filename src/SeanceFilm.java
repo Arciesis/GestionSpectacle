@@ -70,10 +70,11 @@ public class SeanceFilm extends Seance {
      *
      * @param nbre le nombre de places a vendre
      */
-    public void vendrePlacesTN(int nbre) {
+    public void vendrePlacesTN(int nbre) throws ArithmeticException {
         if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre) {
             super.nbPlacesVenduesTarifNormal += nbre;
-        }
+        } else
+            throw new ArithmeticException("nombre de places insuffisantes");
     }
 
 
@@ -82,9 +83,10 @@ public class SeanceFilm extends Seance {
      *
      * @param nbre le nombre de places a vendre
      */
-    public void vendrelacesTR(int nbre) {
+    public void vendrelacesTR(int nbre) throws ArithmeticException{
         if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre) {
             this.nbplacesTarifReduit += nbre;
-        }
+        } else
+            throw new ArithmeticException("nombre de places insuffisantes");
     }
 }

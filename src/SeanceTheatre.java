@@ -64,19 +64,21 @@ public class SeanceTheatre extends Seance{
      * methode permettant de vendre des laces
      * @param nbre le nombre de places a vendre
      */
-    public void vendrePlacesTN(int nbre){
+    public void vendrePlacesTN(int nbre) throws ArithmeticException{
         if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre){
             super.nbPlacesVenduesTarifNormal += nbre;
-        }
+        } else
+            throw new ArithmeticException("nombre de places insufisantes");
     }
 
     /**
      * methide permettant de vendre des fauteuils
      * @param nbre le nombre de fauteuils a vendre
      */
-    public void vendrePlacesFauteuils(int nbre){
+    public void vendrePlacesFauteuils(int nbre) throws ArithmeticException{
         if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre){
             this.fauteuilsVendues += nbre;
-        }
+        } else
+            throw new ArithmeticException("nombre de places insuffisantes");
     }
 }
