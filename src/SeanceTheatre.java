@@ -1,4 +1,4 @@
-public class SeanceTheatre extends  Seance{
+public class SeanceTheatre extends Seance{
 
     /**
      * champ represtant la salle de theatre

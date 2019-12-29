@@ -13,10 +13,11 @@ public class SeanceFilm extends Seance {
 
     /**
      * Constructeur de la classe
-     * @param leCreneau le creneau du film
+     *
+     * @param leCreneau                  le creneau du film
      * @param nbPlacesVenduesTarifNormal le nombre de places vendu au tarif normal
-     * @param laSalle la salle de projection
-     * @param nbplacesTarifReduit le nombre de places vendu a tarid reduit
+     * @param laSalle                    la salle de projection
+     * @param nbplacesTarifReduit        le nombre de places vendu a tarid reduit
      */
     public SeanceFilm(Creneau leCreneau, int nbPlacesVenduesTarifNormal, Salle laSalle, int nbplacesTarifReduit) {
         super(leCreneau, nbPlacesVenduesTarifNormal);
@@ -26,6 +27,7 @@ public class SeanceFilm extends Seance {
 
     /**
      * getteur de la salle
+     *
      * @return la salle de projection du film
      */
     public Salle getLaSalle() {
@@ -34,6 +36,7 @@ public class SeanceFilm extends Seance {
 
     /**
      * getteur du nombre de place vendu a tarif reduit
+     *
      * @return le nombre de place vendu a tarif reduit
      */
     public int getNbplacesTarifReduit() {
@@ -52,9 +55,10 @@ public class SeanceFilm extends Seance {
 
     /**
      * Calcul le taux de remplissage d'une seance de film
+     *
      * @return le taux de remplissage du film
      */
-    public double tauxRemplissage(){
+    public double tauxRemplissage() {
         if (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit != 0)
             return this.laSalle.places / (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit);
         else
@@ -63,10 +67,11 @@ public class SeanceFilm extends Seance {
 
     /**
      * methode permettant de vendre des laces
+     *
      * @param nbre le nombre de places a vendre
      */
-    public void vendrePlacesTN(int nbre){
-        if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre){
+    public void vendrePlacesTN(int nbre) {
+        if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre) {
             super.nbPlacesVenduesTarifNormal += nbre;
         }
     }
@@ -74,10 +79,11 @@ public class SeanceFilm extends Seance {
 
     /**
      * methode permettant de vendre des places a tarif reduit
+     *
      * @param nbre le nombre de places a vendre
      */
-    public void vendrelacesTR(int nbre){
-        if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre){
+    public void vendrelacesTR(int nbre) {
+        if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre) {
             this.nbplacesTarifReduit += nbre;
         }
     }
