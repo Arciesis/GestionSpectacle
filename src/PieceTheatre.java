@@ -84,6 +84,7 @@ public class PieceTheatre extends Spectacle {
                 if (unique.leCreneau.getJour()==s.leCreneau.getJour())
                     return false;
             }
+            s.getLaSalleTheatre().ajouterCreneau(s.leCreneau);
             return GestionSeanceSpectacle.add(s);
         }catch (ClassCastException | NullPointerException e1){
             e1.getMessage();

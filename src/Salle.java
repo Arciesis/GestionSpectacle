@@ -118,11 +118,11 @@ public class Salle {
     @Override
     public String toString() {
         return "Salle{" +
-                "\nnuméro=" + numéro +
-                " \nnom='" + nom + '\'' +
-                " \nplaces=" + places +
-                " \ntarif=" + tarif +
-                " \nLesCreneauxOccupes=" + lesCreneauxOccupes +
+                " numéro=" + numéro +
+                " nom='" + nom + '\'' +
+                " places=" + places +
+                " tarif=" + tarif +
+                " LesCreneauxOccupes=" + lesCreneauxOccupes +
                 '}';
     }
 

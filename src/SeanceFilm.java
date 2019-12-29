@@ -61,8 +61,8 @@ public class SeanceFilm extends Seance {
      * @return le taux de remplissage du film
      */
     public double tauxRemplissage() {
-        if (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit != 0)
-            return this.laSalle.places / (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit);
+        if (this.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit != 0)
+            return (this.nbplacesTarifReduit + this.nbPlacesVenduesTarifNormal) * 100 / this.laSalle.places;
         else
             return 0.0;
     }

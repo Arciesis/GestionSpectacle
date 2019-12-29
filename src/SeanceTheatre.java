@@ -55,7 +55,7 @@ public class SeanceTheatre extends Seance{
      */
     public double tauxRemplissage(){
         if (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues != 0)
-            return this.laSalleTheatre.places / (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues);
+            return ((this.fauteuilsVendues+super.nbPlacesVenduesTarifNormal)*100) / this.getLaSalleTheatre().getPlaces();
         else
             return 0.0;
     }
