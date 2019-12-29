@@ -125,7 +125,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             int lIdDeLaPiece = it.next();
 
             if (lesPieces.get(lIdDeLaPiece).titre == titre && lesPieces.get(lIdDeLaPiece).getMetteurEnScene() == metteurEnScene) {
-                return lesFilms.get(lIdDeLaPiece);
+                return lesPieces.get(lIdDeLaPiece);
             }
         }
         return null;
