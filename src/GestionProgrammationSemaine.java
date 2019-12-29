@@ -1,8 +1,46 @@
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 public class GestionProgrammationSemaine implements IProgrammationSemaine {
+
+    private SortedMap<Integer, Salle> lesSalles;
+    private SortedMap<Integer, SalleTheatre> lesSallesTheatres;
+    private SortedMap<Integer, Film> lesFilms;
+    private SortedMap<Integer, PieceTheatre> lesPieces;
+
+    public GestionProgrammationSemaine() {
+        Salle s1 = new Salle("salle n1", 250, 10.70);
+        Salle s2 = new Salle("salle n2", 250, 10.70);
+        Salle s3 = new Salle("salle n3", 250, 10.70);
+        Salle s4 = new Salle("salle n4", 250, 10.70);
+
+        SalleTheatre st1 = new SalleTheatre("teatre n1", 170, 30.5, 35, 50.0);
+        SalleTheatre st2 = new SalleTheatre("teatre n2", 170, 30.5, 35, 50.0);
+        SalleTheatre st3 = new SalleTheatre("teatre n3", 170, 30.5, 35, 50.0);
+        SalleTheatre st4 = new SalleTheatre("teatre n4", 170, 30.5, 35, 50.0);
+
+
+        this.lesSalles = new TreeMap<>();
+        this.lesSallesTheatres = new TreeMap<>();
+        this.lesFilms = new TreeMap<>();
+        this.lesPieces = new TreeMap<>();
+
+        lesSalles.put(s1.numéro,s1);
+        lesSalles.put(s2.numéro,s2);
+        lesSalles.put(s3.numéro,s3);
+        lesSalles.put(s4.numéro,s4);
+
+        lesSallesTheatres.put(st1.numéro,st1);
+        lesSallesTheatres.put(st2.numéro,st2);
+        lesSallesTheatres.put(st3.numéro,st3);
+        lesSallesTheatres.put(st4.numéro,st4);
+
+
+    }
 
     @Override
     public Film rechercherFilm(String titre, String realisateur) {
-
+        return null;
     }
 
     @Override
