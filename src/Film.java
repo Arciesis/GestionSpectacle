@@ -70,4 +70,16 @@ public class Film extends Spectacle {
     public int getDuree() {
         return duree;
     }
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "idFilm=" + idFilm +
+                ", realisateur='" + realisateur + '\'' +
+                ", duree=" + duree +
+                ", titre='" + titre + '\'' +
+                ", lesInterpretes=" + lesInterpretes +
+                ", GestionSeanceSpectacle=" + GestionSeanceSpectacle +
+                '}';
+    }
 }

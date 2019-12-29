@@ -236,4 +236,14 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     public Spectacle getSpectacle(int numSpectacle) {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "GestionProgrammationSemaine{" +
+                "lesSalles=" + lesSalles +
+                ", lesSallesTheatres=" + lesSallesTheatres +
+                ", lesFilms=" + lesFilms +
+                ", lesPieces=" + lesPieces +
+                '}';
+    }
 }
