@@ -67,11 +67,11 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         Film f = new Film(titre, realisateur, duree);
         try {
             if (!lesFilms.containsKey(f.getIdFilm())) {
-                lesFilms.put(f);
+                lesFilms.put(f.getIdFilm(),f);
             } else
-                throw IllegalArgumentException("Le film existe deja")
+                throw new IllegalArgumentException("Le film existe deja");
         } catch (ClassCastException e1) {
-            e1.getMessage()
+            e1.getMessage();
         } catch (NullPointerException e2) {
             e2.getMessage();
         }
