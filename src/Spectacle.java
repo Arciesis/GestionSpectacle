@@ -54,5 +54,33 @@ public class Spectacle {
         return listeSeances;
     }
 
+    public double tauxRemplissageMoyenSpectacle(){
+        int cpt =0;
+        double tauxRemplissage=0;
+        Iterator<Seance> itSeance = GestionSeanceSpectacle.iterator();
+        while (itSeance.hasNext()){
+            cpt+=1;
+            Seance s = itSeance.next();
+            tauxRemplissage+= s.tauxRemplissage();
+
+        }
+        return tauxRemplissage/cpt;
+    }
+
+    public double ChiffreAffaire(){
+        double chiffreAffaire=0;
+        Iterator<Seance> itSeance = GestionSeanceSpectacle.iterator();
+        while (itSeance.hasNext()){
+            Seance s = itSeance.next();
+            chiffreAffaire+= s.chiffreAffaire();
+
+        }
+        return chiffreAffaire;
+    }
+
+
+
+
+
 
 }

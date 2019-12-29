@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class SeanceFilm extends Seance {
 
     /**
@@ -65,6 +67,13 @@ public class SeanceFilm extends Seance {
             return 0.0;
     }
 
+    public double chiffreAffaire(){
+        double CA=0;
+        CA=(nbplacesTarifReduit*(laSalle.getTarif()*0.6))+(super.nbPlacesVenduesTarifNormal*(laSalle.getTarif()));
+        return CA;
+
+    }
+
     /**
      * methode permettant de vendre des laces
      *
@@ -88,5 +97,15 @@ public class SeanceFilm extends Seance {
             this.nbplacesTarifReduit += nbre;
         } else
             throw new ArithmeticException("nombre de places insuffisantes");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SeanceFilm)) return false;
+        if (!super.equals(o)) return false;
+        SeanceFilm that = (SeanceFilm) o;
+        return nbplacesTarifReduit == that.nbplacesTarifReduit &&
+                Objects.equals(laSalle, that.laSalle);
     }
 }

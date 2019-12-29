@@ -72,4 +72,29 @@ public class PieceTheatre extends Spectacle {
     public int getEntractes(){
         return this.entractes;
     }
+
+    /**
+     *
+     * @param s
+     * @return true si l'on peut ajouter la séance de théatre (1 seule par jour) false sinon
+     */
+    public boolean ajouterSeanceTheatre (SeanceTheatre s) {
+        try{
+            for ( Seance unique : GestionSeanceSpectacle){
+                if (unique.leCreneau.getJour()==s.leCreneau.getJour())
+                    return false;
+            }
+            return GestionSeanceSpectacle.add(s);
+        }catch (ClassCastException | NullPointerException e1){
+            e1.getMessage();
+        }
+        return false;
+    }
+
 }
+
+
+
+
+
+
