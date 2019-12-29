@@ -93,4 +93,20 @@ public class Seance implements Comparable<Seance>{
         }
 
     }
+
+    /**
+     *
+     * @return 0
+     */
+    public double tauxRemplissage() {
+        return 0;
+    }
+
+    /**
+     *
+     * @return 0
+     */
+    public double chiffreAffaire(){
+        return 0;
+    }
 }

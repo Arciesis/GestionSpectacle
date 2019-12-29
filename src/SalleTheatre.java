@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class SalleTheatre extends Salle{
 
     /**
@@ -53,5 +55,14 @@ public class SalleTheatre extends Salle{
                 ", tarif=" + tarif +
                 ", lesCreneauxOccupes=" + lesCreneauxOccupes +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SalleTheatre)) return false;
+        SalleTheatre that = (SalleTheatre) o;
+        return nbFauteuils == that.nbFauteuils &&
+                Double.compare(that.tarifSuperieur, tarifSuperieur) == 0;
     }
 }

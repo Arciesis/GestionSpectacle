@@ -60,6 +60,15 @@ public class SeanceTheatre extends Seance{
             return 0.0;
     }
 
+    public double chiffreAffaire(){
+        double CA=0;
+        CA=(fauteuilsVendues*(laSalleTheatre.getTarifSuperieur()))+(super.nbPlacesVenduesTarifNormal*(laSalleTheatre.getTarif()));
+        return CA;
+
+    }
+
+
+
     /**
      * methode permettant de vendre des laces
      * @param nbre le nombre de places a vendre

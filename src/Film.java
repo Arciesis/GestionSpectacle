@@ -71,6 +71,20 @@ public class Film extends Spectacle {
         return duree;
     }
 
+    /**
+     *
+     * @param s
+     * @return true si l'on peut ajouter la séance au film false sinon
+     */
+    public boolean ajouterSeanceFilm (SeanceFilm s) {
+        try{
+            return GestionSeanceSpectacle.add(s);
+        }catch (ClassCastException | NullPointerException e1){
+            e1.getMessage();
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Film{" +
