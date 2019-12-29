@@ -53,6 +53,4 @@ public class Seance {
         return this.leCreneau.equals(seance.leCreneau);
     }
 
-    public void vendrePlacesTN(int nbre)
-
 }
