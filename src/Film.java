@@ -78,7 +78,10 @@ public class Film extends Spectacle {
      */
     public boolean ajouterSeanceFilm (SeanceFilm s) {
         try{
-            return GestionSeanceSpectacle.add(s);
+            if (s.getLaSalle().estDisponible(s.leCreneau)){
+                s.getLaSalle().ajouterCreneau(s.leCreneau);
+                return GestionSeanceSpectacle.add(s);
+            }
         }catch (ClassCastException | NullPointerException e1){
             e1.getMessage();
         }
@@ -93,7 +96,7 @@ public class Film extends Spectacle {
                 ", duree=" + duree +
                 ", titre='" + titre + '\'' +
                 ", lesInterpretes=" + lesInterpretes +
-                ", GestionSeanceSpectacle=" + GestionSeanceSpectacle +
+                ",\nGestionSeanceSpectacle=" + GestionSeanceSpectacle +
                 '}';
     }
 }

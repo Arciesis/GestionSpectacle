@@ -64,7 +64,9 @@ public class Spectacle {
             tauxRemplissage+= s.tauxRemplissage();
 
         }
-        return tauxRemplissage/cpt;
+        if (cpt!=0)
+            return tauxRemplissage/cpt;
+        else return 0;
     }
 
     public double ChiffreAffaire(){
@@ -78,9 +80,13 @@ public class Spectacle {
         return chiffreAffaire;
     }
 
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Spectacle{" +
+                "idSpectacle=" + idSpectacle +
+                ", titre='" + titre + '\'' +
+                ", lesInterpretes=" + lesInterpretes +
+                ", GestionSeanceSpectacle=" + GestionSeanceSpectacle +
+                '}';
+    }
 }
