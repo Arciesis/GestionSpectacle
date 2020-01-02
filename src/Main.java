@@ -24,7 +24,7 @@ public class Main {
         //((PieceTheatre) LesMiserables).ajouterSeanceTheatre(new SeanceTheatre(new Creneau(1,new Horaire(13,00),new Horaire(14,00)),200,B,80));
         //((PieceTheatre) LesMiserables).ajouterSeanceTheatre(new SeanceTheatre(new Creneau(2,new Horaire(10,00),new Horaire(12,00)),100,B,80));
 
-        System.out.println(lordOfRings.tauxRemplissageMoyenSpectacle());
+        System.out.println(lordOfRings.ChiffreAffaire());
 
 
 

@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -118,6 +119,8 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         }
     }
 
+
+
     @Override
     public PieceTheatre rechercherPiece(String titre, String metteurEnScene) {
         Iterator<Integer> it = lesPieces.keySet().iterator();
@@ -131,13 +134,48 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         return null;
     }
 
+
     @Override
-    public void ajouterPiece(String titre, String metteurEnScene, int nbEntractes) {
+    public void ajouterPiece(String titre, String metteurEnScene, int nbEntractes) throws IllegalArgumentException {
+        try{
+            //on test si la pièce existe déjà vant de l'ajouter , si non on l'ajoute
+            if (rechercherPiece(titre,metteurEnScene)==null){
+                PieceTheatre p = new PieceTheatre(titre,metteurEnScene,nbEntractes);
+                lesPieces.put(p.getIdPieceTheatre(),p);
+            } else
+                throw new IllegalArgumentException("La Piece de Théatre existe deja");
+        } catch (ClassCastException | NullPointerException e1) {
+            e1.getMessage();
+        }
+    }
+
+
+    /**
+     * Calcule de l'horraire de fin d'un film ou pièce de theatre par rapport à une horraire de début donnée
+     * @param debut
+     * @return Horraire HorraireFin
+     */
+    public Horaire CalculHeurreFin (Horaire debut, int duree){
+        int heurFin = debut.getHeures();
+        int minuteFin = debut.getMinutes();
 
     }
 
+
+    // pas fini
     @Override
     public void ajouterSeanceFilm(int idFilm, int jour, Horaire debut, int idSalle) {
+        Set<Integer> myKeys = this.lesFilms.keySet();
+        if (myKeys.contains(idFilm)){
+             Film film = lesFilms.get(idFilm);
+             int duree = dureeFilm(idFilm);
+             Horaire horraireFin = new Horaire(debut)
+
+             film.ajouterSeanceFilm(new SeanceFilm(new Creneau(jour,debut,fin,)))
+        }
+        Iterator<Integer> it = lesFilms.keySet().iterator();
+
+
 
     }
 
@@ -242,8 +280,14 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
     @Override
-    public int dureeFilm(int idFilm) {
-        return 0;
+    public int dureeFilm(int idFilm) throws IllegalArgumentException {
+        Set<Integer> myKeys = this.lesFilms.keySet();
+        if (myKeys.contains(idFilm)){
+            return lesFilms.get(idFilm).getDuree();
+        }else {
+            throw new IllegalArgumentException(" Film inexistant ");
+        }
+
     }
 
     @Override
