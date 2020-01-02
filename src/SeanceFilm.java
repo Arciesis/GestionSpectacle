@@ -92,7 +92,7 @@ public class SeanceFilm extends Seance {
      *
      * @param nbre le nombre de places a vendre
      */
-    public void vendrelacesTR(int nbre) throws ArithmeticException{
+    public void vendrePlacesTR(int nbre) throws ArithmeticException{
         if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre) {
             this.nbplacesTarifReduit += nbre;
         } else

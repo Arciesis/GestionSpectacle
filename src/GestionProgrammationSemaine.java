@@ -120,7 +120,6 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
 
-
     @Override
     public PieceTheatre rechercherPiece(String titre, String metteurEnScene) {
         Iterator<Integer> it = lesPieces.keySet().iterator();
@@ -137,11 +136,11 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public void ajouterPiece(String titre, String metteurEnScene, int nbEntractes) throws IllegalArgumentException {
-        try{
+        try {
             //on test si la pièce existe déjà vant de l'ajouter , si non on l'ajoute
-            if (rechercherPiece(titre,metteurEnScene)==null){
-                PieceTheatre p = new PieceTheatre(titre,metteurEnScene,nbEntractes);
-                lesPieces.put(p.getIdPieceTheatre(),p);
+            if (rechercherPiece(titre, metteurEnScene) == null) {
+                PieceTheatre p = new PieceTheatre(titre, metteurEnScene, nbEntractes);
+                lesPieces.put(p.getIdPieceTheatre(), p);
             } else
                 throw new IllegalArgumentException("La Piece de Théatre existe deja");
         } catch (ClassCastException | NullPointerException e1) {
@@ -151,72 +150,264 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
 
     /**
-     * Calcule de l'horraire de fin d'un film ou pièce de theatre par rapport à une horraire de début donnée
+     * Calcule de l'horraire de fin d'un film ou pièce de theatre par rapport à une horraire de début donnée, un jour et une durée
+     *
      * @param debut
-     * @return Horraire HorraireFin
+     * @return un creneau correspondant au , jour , horraire de début et fin
      */
-    public Horaire CalculHeurreFin (Horaire debut, int duree){
-        int heurFin = debut.getHeures();
-        int minuteFin = debut.getMinutes();
+    public Creneau CalculHeurreFin(int jour, Horaire debut, int duree) {
+        int h = duree / 60;
+        int m = duree % 60;
+        int heureFin = debut.getHeures() + h;
+        int minuteFin = debut.getMinutes() + m;
 
+        if (minuteFin > 59) {
+            heureFin += 1;
+            minuteFin = minuteFin - 60;
+
+
+            if (heureFin > 23) {
+                jour += 1;
+                heureFin = heureFin - 24;
+            }
+        }
+        Horaire horaireFin = new Horaire(heureFin, minuteFin);
+        Creneau c = new Creneau(jour, debut, horaireFin);
+        return c;
     }
+    /*
+    le probleme ici c'est que un créneau es defini par un jour sauf que si l'horaire du début c'est 22h et l'horraire de fin c'est 1h on fait comment on est sur 2 jours
+    a moin que l'on parte du principe que l'on ne peut pas etre sur 2jours a la fois
+     */
 
 
-    // pas fini
+
+
+
+
+    /*pas fini je galere !!
     @Override
-    public void ajouterSeanceFilm(int idFilm, int jour, Horaire debut, int idSalle) {
+    public void ajouterSeanceFilm(int idFilm, int jour, Horaire debut, int idSalle) throws IllegalArgumentException,IllegalStateException {
         Set<Integer> myKeys = this.lesFilms.keySet();
         if (myKeys.contains(idFilm)){
-             Film film = lesFilms.get(idFilm);
+             Film film = this.lesFilms.get(idFilm);
+
+             //on recupère ici le Creneau avec l'horraire de fin
              int duree = dureeFilm(idFilm);
-             Horaire horraireFin = new Horaire(debut)
+             Creneau c = (this.CalculHeurreFin(jour,debut,duree));
 
-             film.ajouterSeanceFilm(new SeanceFilm(new Creneau(jour,debut,fin,)))
+            Set<Integer> myKeys2 = this.lesSalles.keySet();
+            if(myKeys2.contains(idSalle)){
+                Salle salle = this.lesSalles.get(idSalle);
+                film.ajouterSeanceFilm(new SeanceFilm(c,this.,salle,45));
+
+            }else {
+                throw new IllegalArgumentException("Salle inexistante");
+            }
+             
+        }else{
+            throw new IllegalArgumentException("Film inexistant");
         }
-        Iterator<Integer> it = lesFilms.keySet().iterator();
-
-
 
     }
+
+     */
 
     @Override
-    public boolean existeSeanceCeJour(int idPiece, int jour) {
+    public boolean existeSeanceCeJour(int idPiece, int jour) throws IllegalArgumentException {
+        Set<Integer> myKeys = this.lesPieces.keySet();
+        if (myKeys.contains(idPiece)) {
+            PieceTheatre p = lesPieces.get(idPiece);
+
+            Iterator<Seance> it = p.GestionSeanceSpectacle.iterator();
+            if (it.hasNext()) {
+                Seance s = it.next();
+                if (s.leCreneau.getJour() == jour) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            throw new IllegalArgumentException("Piece inexistante");
+        }
         return false;
     }
+
 
     @Override
     public void ajouterSeanceTheatre(int idPiece, int jour, Horaire debut, int idSalle) {
 
     }
 
-    @Override
-    public double chiffreAffaires(int numSpectacle) {
-        return 0;
-    }
 
     @Override
-    public double getTauxRemplissage(int numSpectacle) {
-        return 0;
-    }
+    public double chiffreAffaires(int numSpectacle) throws IllegalArgumentException {
+        Set<Integer> myKeys = this.lesFilms.keySet();
+        Set<Integer> myKeys2 = this.lesPieces.keySet();
 
-    @Override
-    public void vendrePlaceFilmTN(int idFilm, int jour, Horaire debut, int nbPlacesTN) {
+        if (myKeys.contains(numSpectacle)) {
+            Film spectacle = lesFilms.get(numSpectacle);
+            return spectacle.ChiffreAffaire();
 
-    }
-
-    @Override
-    public void vendrePlaceFilmTR(int idFilm, int jour, Horaire debut, int nbPlacesTR) {
-
-    }
-
-    @Override
-    public void vendrePlacePieceTN(int idPiece, int jour, int nbPlacesTN) {
+        } else if (myKeys2.contains(numSpectacle)) {
+            Iterator<Integer> itPiece = lesPieces.keySet().iterator();
+            PieceTheatre spectacle2 = lesPieces.get(numSpectacle);
+            return spectacle2.ChiffreAffaire();
+        } else {
+            throw new IllegalArgumentException("Spectacle inexistant");
+        }
 
     }
 
     @Override
-    public void vendrePlaceFauteuilPiece(int idPiece, int jour, int nbFauteuils) {
+    public double getTauxRemplissage(int numSpectacle) throws IllegalArgumentException {
+        Set<Integer> myKeys = this.lesFilms.keySet();
+        Set<Integer> myKeys2 = this.lesPieces.keySet();
 
+        if (myKeys.contains(numSpectacle)) {
+            Film spectacle = lesFilms.get(numSpectacle);
+            return spectacle.tauxRemplissageMoyenSpectacle();
+
+        } else if (myKeys2.contains(numSpectacle)) {
+            Iterator<Integer> itPiece = lesPieces.keySet().iterator();
+            PieceTheatre spectacle2 = lesPieces.get(numSpectacle);
+            return spectacle2.tauxRemplissageMoyenSpectacle();
+        } else {
+            throw new IllegalArgumentException("Spectacle inexistant");
+        }
+    }
+
+
+    @Override
+    public void vendrePlaceFilmTN(int idFilm, int jour, Horaire debut, int nbPlacesTN) throws IllegalArgumentException {
+        Set<Integer> myKeys = this.lesFilms.keySet();
+        boolean trouve = false;
+
+        //test l'existence du film
+        if (myKeys.contains(idFilm)) {
+            Film f = this.lesFilms.get(idFilm);
+            Iterator<Seance> it = f.GestionSeanceSpectacle.iterator();
+
+            //regarde pour chaque seance si tout correspond et si oui vend le nombre de placesTN
+            //trouve= true pour indiquer que la séance a bien été trouvée
+            while (it.hasNext()) {
+                SeanceFilm seanceFilm = (SeanceFilm) it.next();
+                if (seanceFilm.leCreneau.getJour() == jour) {
+                    if (seanceFilm.leCreneau.getHeureDebut().getHeures() == debut.getHeures() && seanceFilm.leCreneau.getHeureDebut().getMinutes() == debut.getMinutes()) {
+                        seanceFilm.vendrePlacesTN(nbPlacesTN);
+                        trouve = true;
+                    }
+                }
+            }
+
+            if (trouve == false) {
+                throw new IllegalArgumentException("jour ou horaire inexistant");
+            }
+
+        } else {
+            throw new IllegalArgumentException("Film inexistant");
+        }
+    }
+
+
+
+
+    @Override
+    public void vendrePlaceFilmTR(int idFilm, int jour, Horaire debut, int nbPlacesTR) throws IllegalArgumentException  {
+        Set<Integer> myKeys = this.lesFilms.keySet();
+        boolean trouve = false;
+
+        //test l'existence du film
+        if (myKeys.contains(idFilm)) {
+            Film f = this.lesFilms.get(idFilm);
+            Iterator<Seance> it = f.GestionSeanceSpectacle.iterator();
+
+            //regarde pour chaque seance si tout correspond et si oui vend le nombre de placesTR
+            //trouve= true pour indiquer que la séance a bien été trouvée
+            while (it.hasNext()) {
+                SeanceFilm seanceFilm = (SeanceFilm) it.next();
+                if (seanceFilm.leCreneau.getJour() == jour) {
+                    if (seanceFilm.leCreneau.getHeureDebut().getHeures() == debut.getHeures() && seanceFilm.leCreneau.getHeureDebut().getMinutes() == debut.getMinutes()) {
+                        seanceFilm.vendrePlacesTR(nbPlacesTR);
+                        trouve = true;
+                    }
+                }
+            }
+
+            if (trouve == false) {
+                throw new IllegalArgumentException("jour ou horaire inexistant");
+            }
+
+        } else {
+            throw new IllegalArgumentException("Film inexistant");
+        }
+    }
+
+
+
+
+    @Override
+    public void vendrePlacePieceTN(int idPiece, int jour, int nbPlacesTN)  throws IllegalArgumentException  {
+        Set<Integer> myKeys = this.lesPieces.keySet();
+        boolean trouve = false;
+
+        //test l'existence de la pièce
+        if (myKeys.contains(idPiece)) {
+            PieceTheatre pieceTheatre = this.lesPieces.get(idPiece);
+            Iterator<Seance> it = pieceTheatre.GestionSeanceSpectacle.iterator();
+
+            //regarde pour chaque seance si le jour correspond et si oui vend le nombre de placesTN
+            //trouve= true pour indiquer que la séance a bien été trouvée
+            while (it.hasNext()) {
+                SeanceTheatre seanceTheatre = (SeanceTheatre) it.next();
+                if (seanceTheatre.leCreneau.getJour() == jour) {
+                    seanceTheatre.vendrePlacesTN(nbPlacesTN);
+                    trouve = true;
+                }
+            }
+
+
+            if (trouve == false) {
+                throw new IllegalArgumentException("jour inexistant");
+            }
+
+        } else {
+            throw new IllegalArgumentException("Pièce inexistante");
+        }
+    }
+
+
+
+
+    @Override
+    public void vendrePlaceFauteuilPiece(int idPiece, int jour, int nbFauteuils) throws IllegalArgumentException   {
+        Set<Integer> myKeys = this.lesPieces.keySet();
+        boolean trouve = false;
+
+        //test l'existence de la pièce
+        if (myKeys.contains(idPiece)) {
+            PieceTheatre pieceTheatre = this.lesPieces.get(idPiece);
+            Iterator<Seance> it = pieceTheatre.GestionSeanceSpectacle.iterator();
+
+            //regarde pour chaque seance si le jour correspond et si oui vend le nombre de fauteuils nbFauteuils
+            //trouve= true pour indiquer que la séance a bien été trouvée
+            while (it.hasNext()) {
+                SeanceTheatre seanceTheatre = (SeanceTheatre) it.next();
+                if (seanceTheatre.leCreneau.getJour() == jour) {
+                    seanceTheatre.vendrePlacesTN(nbFauteuils);
+                    trouve = true;
+                }
+            }
+
+
+            if (trouve == false) {
+                throw new IllegalArgumentException("jour inexistant");
+            }
+
+        } else {
+            throw new IllegalArgumentException("Pièce inexistante");
+        }
     }
 
     @Override
@@ -282,9 +473,9 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     @Override
     public int dureeFilm(int idFilm) throws IllegalArgumentException {
         Set<Integer> myKeys = this.lesFilms.keySet();
-        if (myKeys.contains(idFilm)){
+        if (myKeys.contains(idFilm)) {
             return lesFilms.get(idFilm).getDuree();
-        }else {
+        } else {
             throw new IllegalArgumentException(" Film inexistant ");
         }
 
