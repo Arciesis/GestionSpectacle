@@ -46,7 +46,8 @@ public class Film extends Spectacle {
     }
 
     {
-        this.idFilm = idFilmSuivant;
+        idSpectacle = idFilmSuivant;
+        this.idFilm=idSpectacle;
         idFilmSuivant += 1;
     }
 
@@ -70,6 +71,7 @@ public class Film extends Spectacle {
     public int getDuree() {
         return duree;
     }
+
 
     /**
      *

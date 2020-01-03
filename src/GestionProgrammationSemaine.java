@@ -41,10 +41,10 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         SalleTheatre st4 = new SalleTheatre("teatre n4", 170, 30.5, 35, 50.0);
 
 
-        this.lesSalles = new TreeMap<>();
-        this.lesSallesTheatres = new TreeMap<>();
-        this.lesFilms = new TreeMap<>();
-        this.lesPieces = new TreeMap<>();
+        this.lesSalles = new TreeMap<Integer, Salle>();
+        this.lesSallesTheatres = new TreeMap<Integer, SalleTheatre>();
+        this.lesFilms = new TreeMap<Integer, Film>();
+        this.lesPieces = new TreeMap<Integer, PieceTheatre>();
 
         lesSalles.put(s1.numéro, s1);
         lesSalles.put(s2.numéro, s2);
@@ -75,7 +75,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     public void ajouterFilm(String titre, String realisateur, int duree) throws IllegalArgumentException {
         Film f = new Film(titre, realisateur, duree);
         try {
-            if (!lesFilms.containsKey(f.getIdFilm())) {
+            if (rechercherFilm(titre,realisateur)==null) {
                 lesFilms.put(f.getIdFilm(), f);
             } else
                 throw new IllegalArgumentException("Le film existe deja");
@@ -136,13 +136,12 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public void ajouterPiece(String titre, String metteurEnScene, int nbEntractes) throws IllegalArgumentException {
+        PieceTheatre p = new PieceTheatre(titre, metteurEnScene, nbEntractes);
         try {
-            //on test si la pièce existe déjà vant de l'ajouter , si non on l'ajoute
-            if (rechercherPiece(titre, metteurEnScene) == null) {
-                PieceTheatre p = new PieceTheatre(titre, metteurEnScene, nbEntractes);
+            if (rechercherPiece(titre,metteurEnScene)==null) {
                 lesPieces.put(p.getIdPieceTheatre(), p);
             } else
-                throw new IllegalArgumentException("La Piece de Théatre existe deja");
+                throw new IllegalArgumentException("Le film existe deja");
         } catch (ClassCastException | NullPointerException e1) {
             e1.getMessage();
         }
@@ -246,7 +245,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
             //on recupère ici le Creneau avec l'horraire de fin (et le jour ex:  horaireDebut=22h30 , horaireFin=01h30 on est plus sur le meme jour)
             // il faut que le créneau reste sur le meme jour
-            Creneau c = new Creneau(jour,debut,new Horaire(debut.getHeures()+3,debut.getMinutes()));
+            Creneau c = new Creneau(jour, debut, new Horaire(debut.getHeures() + 3, debut.getMinutes()));
             if (c.getHeureFin().getHeures() > 23) {
                 throw new IllegalStateException("Créneau indisponible");
             } else {
@@ -261,7 +260,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
                     if (salle.lesCreneauxOccupes.containsKey(jour)) {
                         throw new IllegalStateException("Créneau indisponible pour dans cette salle");
                     } else {
-                        pieceTheatre.ajouterSeanceTheatre(new SeanceTheatre(c,0,salle,0));
+                        pieceTheatre.ajouterSeanceTheatre(new SeanceTheatre(c, 0, salle, 0));
                     }
                 } else {
                     throw new IllegalArgumentException("Salle inexistante");
@@ -439,12 +438,28 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public String lesFilms() {
-        return null;
+        String nomFilms = "Les films présents sont : { ";
+        Iterator<Integer> itFilm = lesFilms.keySet().iterator();
+        while (itFilm.hasNext()) {
+            int idfilm = itFilm.next();
+            Film film = this.lesFilms.get(idfilm);
+            nomFilms = nomFilms + film.titre + " ; ";
+        }
+        nomFilms += "}";
+        return nomFilms;
     }
 
     @Override
     public String lesPieces() {
-        return null;
+        String nomPieces = "Les Pièces de théatre présentes sont : { ";
+        Iterator<Integer> itPiece = lesPieces.keySet().iterator();
+        while (itPiece.hasNext()) {
+            int idPiece = itPiece.next();
+            PieceTheatre Piece = this.lesPieces.get(idPiece);
+            nomPieces = nomPieces + Piece.getTitre() + " ; ";
+        }
+        nomPieces += "}";
+        return nomPieces;
     }
 
     @Override

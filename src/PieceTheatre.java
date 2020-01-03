@@ -7,14 +7,15 @@ public class PieceTheatre extends Spectacle {
     private String metteurEnScene;
 
     /**
+     * L'id de la piece de theatre
+     */
+    private int idPieceTheatre;
+
+    /**
      * est utilise pour l'incrementation de l'id
      */
     private static int idPieceTheatreSuivant;
 
-    /**
-     * L'id de la piece de theatre
-     */
-    private int idPieceTheatre;
 
     /**
      * le nombre d'entractes de la piece de theatre
@@ -41,7 +42,8 @@ public class PieceTheatre extends Spectacle {
     }
 
     {
-        this.idSpectacle = idPieceTheatreSuivant;
+        idSpectacle=idPieceTheatreSuivant;
+        this.idPieceTheatre = idSpectacle;
         idPieceTheatreSuivant += 1;
     }
 
@@ -92,6 +94,18 @@ public class PieceTheatre extends Spectacle {
         return false;
     }
 
+
+    @Override
+    public String toString() {
+        return "PieceTheatre{" +
+                "metteurEnScene='" + metteurEnScene + '\'' +
+                ", idPieceTheatre=" + idPieceTheatre +
+                ", entractes=" + entractes +
+                ", titre='" + titre + '\'' +
+                ", lesInterpretes=" + lesInterpretes +
+                ", GestionSeanceSpectacle=" + GestionSeanceSpectacle +
+                '}';
+    }
 }
 
 
