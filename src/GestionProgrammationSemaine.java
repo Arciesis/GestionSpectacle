@@ -171,47 +171,48 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
                 heureFin = heureFin - 24;
             }
         }
+
         Horaire horaireFin = new Horaire(heureFin, minuteFin);
         Creneau c = new Creneau(jour, debut, horaireFin);
         return c;
     }
-    /*
-    le probleme ici c'est que un créneau es defini par un jour sauf que si l'horaire du début c'est 22h et l'horraire de fin c'est 1h on fait comment on est sur 2 jours
-    a moin que l'on parte du principe que l'on ne peut pas etre sur 2jours a la fois
-     */
 
-
-
-
-
-
-    /*pas fini je galere !!
     @Override
-    public void ajouterSeanceFilm(int idFilm, int jour, Horaire debut, int idSalle) throws IllegalArgumentException,IllegalStateException {
+    public void ajouterSeanceFilm(int idFilm, int jour, Horaire debut, int idSalle) throws IllegalArgumentException, IllegalStateException {
+
+        // on test l'existnce du film
         Set<Integer> myKeys = this.lesFilms.keySet();
-        if (myKeys.contains(idFilm)){
-             Film film = this.lesFilms.get(idFilm);
+        if (myKeys.contains(idFilm)) {
+            Film film = this.lesFilms.get(idFilm);
 
-             //on recupère ici le Creneau avec l'horraire de fin
-             int duree = dureeFilm(idFilm);
-             Creneau c = (this.CalculHeurreFin(jour,debut,duree));
+            //on recupère ici le Creneau avec l'horraire de fin (et le jour ex:  horaireDebut=22h30 , horaireFin=00h30 on est plus sur le meme jour)
+            // il faut que le créneau reste sur le meme jour
+            int duree = this.dureeFilm(idFilm);
+            Creneau c = (this.CalculHeurreFin(jour, debut, duree));
 
-            Set<Integer> myKeys2 = this.lesSalles.keySet();
-            if(myKeys2.contains(idSalle)){
-                Salle salle = this.lesSalles.get(idSalle);
-                film.ajouterSeanceFilm(new SeanceFilm(c,this.,salle,45));
-
-            }else {
-                throw new IllegalArgumentException("Salle inexistante");
+            if (c.getJour() != jour) {
+                throw new IllegalStateException("Créneau indisponible");
+            } else {
+                //test si la salle existe bien, si oui on ajoute la séance à l'ensemble des séance du film avec la salle corespondante et on bloque également le créneau sur la salle si possible
+                // "ajouterSeanceFilm" se charge déja de blouer le créneaux pour la salle passer en parametre
+                Set<Integer> myKeys2 = this.lesSalles.keySet();
+                if (myKeys2.contains(idSalle)) {
+                    Salle salle = this.lesSalles.get(idSalle);
+                    if (salle.estDisponible(c)) {
+                        film.ajouterSeanceFilm(new SeanceFilm(c, salle, 0, 0));
+                    } else {
+                        throw new IllegalStateException("Créneau indisponible");
+                    }
+                } else {
+                    throw new IllegalArgumentException("Salle inexistante");
+                }
             }
-             
-        }else{
+        } else {
             throw new IllegalArgumentException("Film inexistant");
         }
 
     }
 
-     */
 
     @Override
     public boolean existeSeanceCeJour(int idPiece, int jour) throws IllegalArgumentException {
@@ -236,7 +237,39 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
 
     @Override
-    public void ajouterSeanceTheatre(int idPiece, int jour, Horaire debut, int idSalle) {
+    public void ajouterSeanceTheatre(int idPiece, int jour, Horaire debut, int idSalle) throws IllegalArgumentException, IllegalStateException {
+
+        // on test l'existnce du film
+        Set<Integer> myKeys = this.lesPieces.keySet();
+        if (myKeys.contains(idPiece)) {
+            PieceTheatre pieceTheatre = this.lesPieces.get(idPiece);
+
+            //on recupère ici le Creneau avec l'horraire de fin (et le jour ex:  horaireDebut=22h30 , horaireFin=01h30 on est plus sur le meme jour)
+            // il faut que le créneau reste sur le meme jour
+            Creneau c = new Creneau(jour,debut,new Horaire(debut.getHeures()+3,debut.getMinutes()));
+            if (c.getHeureFin().getHeures() > 23) {
+                throw new IllegalStateException("Créneau indisponible");
+            } else {
+                //test si la salle existe bien, si oui on ajoute la séance à l'ensemble des séance du film avec la salle corespondante et on bloque également le créneau sur la salle si possible
+                // "ajouterSeanceFilm" se charge déja de blouer le créneaux pour la salle passer en parametre
+                Set<Integer> myKeys2 = this.lesSallesTheatres.keySet();
+                if (myKeys2.contains(idSalle)) {
+                    SalleTheatre salle = this.lesSallesTheatres.get(idSalle);
+
+                    //test si le jour est deja une clé dans l'ensemble des créneaux de la salle , si oui alors c'est qu'il y a deja un créneau pour ce jour dans la salle
+                    //il ne peut y avoir qu'un seul créneau par jour de 3h
+                    if (salle.lesCreneauxOccupes.containsKey(jour)) {
+                        throw new IllegalStateException("Créneau indisponible pour dans cette salle");
+                    } else {
+                        pieceTheatre.ajouterSeanceTheatre(new SeanceTheatre(c,0,salle,0));
+                    }
+                } else {
+                    throw new IllegalArgumentException("Salle inexistante");
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("Film inexistant");
+        }
 
     }
 
@@ -311,10 +344,8 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
 
-
-
     @Override
-    public void vendrePlaceFilmTR(int idFilm, int jour, Horaire debut, int nbPlacesTR) throws IllegalArgumentException  {
+    public void vendrePlaceFilmTR(int idFilm, int jour, Horaire debut, int nbPlacesTR) throws IllegalArgumentException {
         Set<Integer> myKeys = this.lesFilms.keySet();
         boolean trouve = false;
 
@@ -345,10 +376,8 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
 
-
-
     @Override
-    public void vendrePlacePieceTN(int idPiece, int jour, int nbPlacesTN)  throws IllegalArgumentException  {
+    public void vendrePlacePieceTN(int idPiece, int jour, int nbPlacesTN) throws IllegalArgumentException {
         Set<Integer> myKeys = this.lesPieces.keySet();
         boolean trouve = false;
 
@@ -378,10 +407,8 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
 
-
-
     @Override
-    public void vendrePlaceFauteuilPiece(int idPiece, int jour, int nbFauteuils) throws IllegalArgumentException   {
+    public void vendrePlaceFauteuilPiece(int idPiece, int jour, int nbFauteuils) throws IllegalArgumentException {
         Set<Integer> myKeys = this.lesPieces.keySet();
         boolean trouve = false;
 
