@@ -82,12 +82,12 @@ public class PieceTheatre extends Spectacle {
      */
     public boolean ajouterSeanceTheatre (SeanceTheatre s) {
         try{
-            for ( Seance unique : GestionSeanceSpectacle){
+            for ( Seance unique : super.GestionSeanceSpectacle){
                 if (unique.leCreneau.getJour()==s.leCreneau.getJour())
                     return false;
             }
             s.getLaSalleTheatre().ajouterCreneau(s.leCreneau);
-            return GestionSeanceSpectacle.add(s);
+            return super.GestionSeanceSpectacle.add(s);
         }catch (ClassCastException | NullPointerException e1){
             e1.getMessage();
         }

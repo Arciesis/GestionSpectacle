@@ -75,7 +75,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     public void ajouterFilm(String titre, String realisateur, int duree) throws IllegalArgumentException {
         Film f = new Film(titre, realisateur, duree);
         try {
-            if (rechercherFilm(titre,realisateur)==null) {
+            if (rechercherFilm(titre, realisateur) == null) {
                 lesFilms.put(f.getIdFilm(), f);
             } else
                 throw new IllegalArgumentException("Le film existe deja");
@@ -138,7 +138,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     public void ajouterPiece(String titre, String metteurEnScene, int nbEntractes) throws IllegalArgumentException {
         PieceTheatre p = new PieceTheatre(titre, metteurEnScene, nbEntractes);
         try {
-            if (rechercherPiece(titre,metteurEnScene)==null) {
+            if (rechercherPiece(titre, metteurEnScene) == null) {
                 lesPieces.put(p.getIdPieceTheatre(), p);
             } else
                 throw new IllegalArgumentException("Le film existe deja");
@@ -464,22 +464,66 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public String lesSallesFilm() {
-        return null;
+        String nomSalle = "Les Salles présentes sont : { ";
+        Iterator<Integer> itSalle = lesSalles.keySet().iterator();
+        while (itSalle.hasNext()) {
+            int idSalle = itSalle.next();
+            Salle salle = this.lesSalles.get(idSalle);
+            nomSalle = nomSalle + salle.getNom() + " ; ";
+        }
+        nomSalle += "}";
+        return nomSalle;
     }
+
+
 
     @Override
     public String lesSallesTheatre() {
-        return null;
+        String nomSalleTheatre = "Les Salles de théatre présentes sont : { ";
+        Iterator<Integer> itSalletheatre = lesSallesTheatres.keySet().iterator();
+        while (itSalletheatre.hasNext()) {
+            int idSalletheatre = itSalletheatre.next();
+            SalleTheatre salletheatre = this.lesSallesTheatres.get(idSalletheatre);
+            nomSalleTheatre = nomSalleTheatre + salletheatre.getNom() + " ; ";
+        }
+        nomSalleTheatre += "}";
+        return nomSalleTheatre;
     }
 
     @Override
-    public String lesSeancesTheatre(int idPiece) {
-        return null;
+    public String lesSeancesTheatre(int idPiece) throws IllegalArgumentException {
+        String SeanceTheatre = "Les séances de théatre présentes sont : {    ";
+        Set<Integer> myKeys = this.lesPieces.keySet();
+
+        if (myKeys.contains(idPiece)){
+            PieceTheatre pieceTheatre = this.lesPieces.get(idPiece);
+            for ( Seance s : pieceTheatre.GestionSeanceSpectacle) {
+                SeanceTheatre = SeanceTheatre + s.toString() + " ; ";
+            }
+            SeanceTheatre+= "   }";
+            return SeanceTheatre;
+        }
+        else{
+            throw new IllegalArgumentException("Pièce inéxistante");
+        }
     }
 
     @Override
-    public String lesSeancesFilm(int idFilm) {
-        return null;
+    public String lesSeancesFilm(int idFilm) throws IllegalArgumentException  {
+        String SeanceFlim = "Les séances de films présentes sont : {    ";
+        Set<Integer> myKeys = this.lesFilms.keySet();
+
+        if (myKeys.contains(idFilm)){
+            Film film = this.lesFilms.get(idFilm);
+            for ( Seance s : film.GestionSeanceSpectacle) {
+                SeanceFlim = SeanceFlim + s.toString() + " ; ";
+            }
+            SeanceFlim+= "   }";
+            return SeanceFlim;
+        }
+        else{
+            throw new IllegalArgumentException("Film inéxistant");
+        }
     }
 
     @Override
