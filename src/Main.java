@@ -34,7 +34,7 @@ public class Main {
         System.out.println("");
 
 
-        //a tester en ajoutant des seance aux film et pièce créer precédament
+        //a tester en ajoutant des seance aux film et pièce créer precédament avec la methode "ajouterSeance..." de gps
         System.out.println(gps.lesSeancesFilm(103));
         System.out.println(gps.lesSeancesTheatre(103));
 
