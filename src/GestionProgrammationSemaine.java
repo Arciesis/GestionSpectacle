@@ -526,17 +526,30 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public boolean existeFilm(int idFilm) {
-        return false;
+        if (lesFilms.containsKey(idFilm)) {
+            return true;
+        } else return false;
     }
 
     @Override
     public boolean existePiece(int idPiece) {
-        return false;
+        if (lesPieces.containsKey(idPiece))
+            return true;
+        else return false;
     }
 
     @Override
     public boolean existeSeanceFilm(int idFilm, int jour, int heures, int minutes) {
-        return false;
+        if (lesFilms.containsKey(idFilm)) {
+            Spectacle s = lesFilms.get(idFilm);
+            for (Seance item :
+                    s.getGestionSeanceSpectacle()) {
+                if (item.equals(new Seance(new Creneau(jour, heures, minutes)), 0))
+                    return true
+            }
+            return false;
+        } else throw new IllegalArgumentException("film inexistant");
+
     }
 
     @Override
@@ -580,7 +593,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         Set<Integer> myKeys = this.lesPieces.keySet();
         SeanceTheatre maSeance = null;
 
-        if (!this.lesPieces.get(idPiece).rechercheListeSeance(jour).isEmpty()){
+        if (!this.lesPieces.get(idPiece).rechercheListeSeance(jour).isEmpty()) {
 
             //On ne recupere qu'une seule seance car c'est une piece de theatre
             maSeance = (SeanceTheatre) this.lesPieces.get(idPiece).rechercheListeSeance(jour).get(0);

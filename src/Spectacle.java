@@ -24,6 +24,22 @@ public class Spectacle {
         }
     }
 
+    public int getIdSpectacle() {
+        return idSpectacle;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public Interpretes getLesInterpretes() {
+        return lesInterpretes;
+    }
+
+    public SortedSet<Seance> getGestionSeanceSpectacle() {
+        return GestionSeanceSpectacle;
+    }
+
     /**
      *
      * @param jour
