@@ -61,7 +61,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         while (it.hasNext()) {
             int lIdDuFilm = it.next();
 
-            if (lesFilms.get(lIdDuFilm).titre == titre && lesFilms.get(lIdDuFilm).getRealisateur() == realisateur) {
+            if (lesFilms.get(lIdDuFilm).titre.trim().equalsIgnoreCase(titre) && lesFilms.get(lIdDuFilm).getRealisateur().trim().equalsIgnoreCase(realisateur)) {
                 return lesFilms.get(lIdDuFilm);
             }
         }
@@ -545,9 +545,9 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             for (Seance item :
                     s.getGestionSeanceSpectacle()) {
 
-                if (item.getLeCreneau().getJour() == jour){
-                    if (item.getLeCreneau().getHeureDebut().getHeures() == heures){
-                        if (item.getLeCreneau().getHeureDebut().getMinutes() == minutes){
+                if (item.getLeCreneau().getJour() == jour) {
+                    if (item.getLeCreneau().getHeureDebut().getHeures() == heures) {
+                        if (item.getLeCreneau().getHeureDebut().getMinutes() == minutes) {
                             return true;
                         }
                     }
@@ -601,8 +601,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public int getNbFauteuilsDispo(int idPiece, int jour) {
-        Set<Integer> myKeys = this.lesPieces.keySet();
-
+        return 0;
     }
 
     @Override
