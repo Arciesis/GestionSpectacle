@@ -407,7 +407,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             while (it.hasNext()) {
                 SeanceTheatre seanceTheatre = (SeanceTheatre) it.next();
                 if (seanceTheatre.leCreneau.getJour() == jour) {
-                    seanceTheatre.vendrePlacesTN(nbFauteuils);
+                    seanceTheatre.vendrePlacesFauteuils(nbFauteuils);
                     trouve = true;
                 }
             }
@@ -601,7 +601,8 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public int getNbFauteuilsDispo(int idPiece, int jour) {
-        return 0;
+        Set<Integer> myKeys = this.lesPieces.keySet();
+
     }
 
     @Override
