@@ -43,15 +43,15 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         this.lesFilms = new TreeMap<Integer, Film>();
         this.lesPieces = new TreeMap<Integer, PieceTheatre>();
 
-        lesSalles.put(s1.numéro, s1);
-        lesSalles.put(s2.numéro, s2);
-        lesSalles.put(s3.numéro, s3);
-        lesSalles.put(s4.numéro, s4);
+        lesSalles.put(s1.getNuméro(), s1);
+        lesSalles.put(s2.getNuméro(), s2);
+        lesSalles.put(s3.getNuméro(), s3);
+        lesSalles.put(s4.getNuméro(), s4);
 
-        lesSallesTheatres.put(st1.numéro, st1);
-        lesSallesTheatres.put(st2.numéro, st2);
-        lesSallesTheatres.put(st3.numéro, st3);
-        lesSallesTheatres.put(st4.numéro, st4);
+        lesSallesTheatres.put(st1.getNuméro(), st1);
+        lesSallesTheatres.put(st2.getNuméro(), st2);
+        lesSallesTheatres.put(st3.getNuméro(), st3);
+        lesSallesTheatres.put(st4.getNuméro(), st4);
 
     }
 

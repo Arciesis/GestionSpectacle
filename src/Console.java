@@ -87,4 +87,14 @@ public class Console {
         } while (!validation.equalsIgnoreCase("o") && estValide);
         return choixDefinitif;
     }
+
+    public static boolean affAjouterSeanceFilm(GestionProgrammationSemaine gps) {
+        if (gps.lesFilms().equalsIgnoreCase("{ }")) {
+            System.out.println(gps.lesFilms());
+            return true;
+        } else {
+            System.out.println("Aucun film");
+            return false;
+        }
+    }
 }
