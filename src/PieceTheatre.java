@@ -88,13 +88,16 @@ public class PieceTheatre extends Spectacle {
             while(itSeanceSpectacle.hasNext()) {
                 SeanceTheatre unqique = (SeanceTheatre) itSeanceSpectacle.next();
                 int idSalle = unqique.getLaSalleTheatre().numéro;
-                if (unqique.leCreneau.getJour() == s.leCreneau.getJour() &&  idSalle==s.getLaSalleTheatre().numéro){
-                    return false;
+                if (unqique.leCreneau.getJour() == s.leCreneau.getJour()){
+                    if (unqique.getLaSalleTheatre().getNuméro()== s.getLaSalleTheatre().getNuméro()) {
+                        return false;
+                    }
                 }
             }
 
             s.getLaSalleTheatre().ajouterCreneau(s.leCreneau);
-            return super.GestionSeanceSpectacle.add(s);
+            boolean test = super.GestionSeanceSpectacle.add(s);
+            return test;
         }catch (ClassCastException | NullPointerException e1){
             e1.getMessage();
         }

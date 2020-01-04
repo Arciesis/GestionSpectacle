@@ -1,4 +1,4 @@
-public class SeanceTheatre extends Seance{
+public class SeanceTheatre extends Seance implements Comparable<SeanceTheatre> {
 
     /**
      * champ represtant la salle de theatre
@@ -12,10 +12,11 @@ public class SeanceTheatre extends Seance{
 
     /**
      * Constructeur de la classe
-     * @param leCreneau le creneau sur lequel la seance est prevue
+     *
+     * @param leCreneau                  le creneau sur lequel la seance est prevue
      * @param nbPlacesVenduesTarifNormal le nombre de place a tarif normal vendues
-     * @param laSalleTheatre la salle de theatre ou se deroule la piece
-     * @param fauteuilsVendues le nombre de fauteuils vendues
+     * @param laSalleTheatre             la salle de theatre ou se deroule la piece
+     * @param fauteuilsVendues           le nombre de fauteuils vendues
      */
     public SeanceTheatre(Creneau leCreneau, int nbPlacesVenduesTarifNormal, SalleTheatre laSalleTheatre, int fauteuilsVendues) {
         super(leCreneau, nbPlacesVenduesTarifNormal);
@@ -26,6 +27,7 @@ public class SeanceTheatre extends Seance{
 
     /**
      * getteur de la salle de theatre
+     *
      * @return la salle de theatre
      */
     public SalleTheatre getLaSalleTheatre() {
@@ -34,6 +36,7 @@ public class SeanceTheatre extends Seance{
 
     /**
      * getteur du nombre de fauteuils vendues
+     *
      * @return le nombre de fauteuils vendues
      */
     public int getFauteuilsVendues() {
@@ -49,32 +52,34 @@ public class SeanceTheatre extends Seance{
                 ", nbPlacesVenduesTarifNormal=" + nbPlacesVenduesTarifNormal +
                 '}';
     }
+
     /**
      * Calcul le taux de remplissage d'une seance de film
+     *
      * @return le taux de remplissage du film
      */
-    public double tauxRemplissage(){
+    public double tauxRemplissage() {
         if (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues != 0)
-            return ((this.fauteuilsVendues+super.nbPlacesVenduesTarifNormal)*100) / this.getLaSalleTheatre().getPlaces();
+            return ((this.fauteuilsVendues + super.nbPlacesVenduesTarifNormal) * 100) / this.getLaSalleTheatre().getPlaces();
         else
             return 0.0;
     }
 
-    public double chiffreAffaire(){
-        double CA=0;
-        CA=(fauteuilsVendues*(laSalleTheatre.getTarifSuperieur()))+(super.nbPlacesVenduesTarifNormal*(laSalleTheatre.getTarif()));
+    public double chiffreAffaire() {
+        double CA = 0;
+        CA = (fauteuilsVendues * (laSalleTheatre.getTarifSuperieur())) + (super.nbPlacesVenduesTarifNormal * (laSalleTheatre.getTarif()));
         return CA;
 
     }
 
 
-
     /**
      * methode permettant de vendre des laces
+     *
      * @param nbre le nombre de places a vendre
      */
-    public void vendrePlacesTN(int nbre) throws ArithmeticException{
-        if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre){
+    public void vendrePlacesTN(int nbre) throws ArithmeticException {
+        if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre) {
             super.nbPlacesVenduesTarifNormal += nbre;
         } else
             throw new ArithmeticException("nombre de places insufisantes");
@@ -82,12 +87,45 @@ public class SeanceTheatre extends Seance{
 
     /**
      * methide permettant de vendre des fauteuils
+     *
      * @param nbre le nombre de fauteuils a vendre
      */
-    public void vendrePlacesFauteuils(int nbre) throws ArithmeticException{
-        if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre){
+    public void vendrePlacesFauteuils(int nbre) throws ArithmeticException {
+        if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre) {
             this.fauteuilsVendues += nbre;
         } else
             throw new ArithmeticException("nombre de places insuffisantes");
+    }
+
+    public int compareTo(SeanceTheatre seanceTheatre) {
+        if (this.getLaSalleTheatre().getNuméro() != seanceTheatre.getLaSalleTheatre().getNuméro()) {
+            return 1;
+        } else {
+            if (this.leCreneau.getJour() < seanceTheatre.leCreneau.getJour()) {
+                return -1;
+            } else if (this.leCreneau.getJour() > seanceTheatre.leCreneau.getJour()) {
+                return 1;
+            } else {
+                if (this.leCreneau.getHeureDebut().getHeures() == seanceTheatre.leCreneau.getHeureFin().getHeures()) {
+                    if (this.leCreneau.getHeureDebut().getMinutes() >= seanceTheatre.leCreneau.getHeureFin().getMinutes()) {
+                        return -1;
+                    } else return 0;
+                } else if (this.leCreneau.getHeureFin().getHeures() == seanceTheatre.leCreneau.getHeureDebut().getHeures()) {
+                    if (this.leCreneau.getHeureFin().getMinutes() <= seanceTheatre.leCreneau.getHeureDebut().getMinutes()) {
+                        return 1;
+                    } else return 0;
+                } else if (this.leCreneau.getHeureDebut().getHeures() > seanceTheatre.leCreneau.getHeureFin().getHeures()) {
+                    return -1;
+
+                } else if (this.leCreneau.getHeureFin().getHeures() < seanceTheatre.leCreneau.getHeureDebut().getHeures()) {
+                    return 1;
+
+                } else return 0;
+
+
+            }
+        }
+
+
     }
 }

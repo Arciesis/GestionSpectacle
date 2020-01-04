@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class SeanceFilm extends Seance {
+public class SeanceFilm extends Seance implements Comparable<SeanceFilm>{
 
     /**
      * champ representant la salle de projection du film
@@ -107,5 +107,33 @@ public class SeanceFilm extends Seance {
         SeanceFilm that = (SeanceFilm) o;
         return nbplacesTarifReduit == that.nbplacesTarifReduit &&
                 Objects.equals(laSalle, that.laSalle);
+    }
+
+    public int compareTo(SeanceFilm seanceFilm) {
+        if ( this.getLaSalle().getNuméro() != seanceFilm.getLaSalle().getNuméro())  {
+            return 1;
+        }else {
+            if (this.leCreneau.getJour() < seanceFilm.leCreneau.getJour()) {
+                return -1;
+            } else if (this.leCreneau.getJour() > seanceFilm.leCreneau.getJour()) {
+                return 1;
+            } else {
+                if (this.leCreneau.getHeureDebut().getHeures() == seanceFilm.leCreneau.getHeureFin().getHeures()) {
+                    if (this.leCreneau.getHeureDebut().getMinutes() >= seanceFilm.leCreneau.getHeureFin().getMinutes()) {
+                        return -1;
+                    } else return 0;
+                } else if (this.leCreneau.getHeureFin().getHeures() == seanceFilm.leCreneau.getHeureDebut().getHeures()) {
+                    if (this.leCreneau.getHeureFin().getMinutes() <= seanceFilm.leCreneau.getHeureDebut().getMinutes()) {
+                        return 1;
+                    } else return 0;
+                } else if (this.leCreneau.getHeureDebut().getHeures() > seanceFilm.leCreneau.getHeureFin().getHeures()) {
+                    return -1;
+
+                } else if (this.leCreneau.getHeureFin().getHeures() < seanceFilm.leCreneau.getHeureDebut().getHeures()) {
+                    return 1;
+                } else return 0;
+
+            }
+        }
     }
 }
