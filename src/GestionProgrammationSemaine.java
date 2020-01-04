@@ -122,7 +122,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         while (it.hasNext()) {
             int lIdDeLaPiece = it.next();
 
-            if (lesPieces.get(lIdDeLaPiece).titre == titre && lesPieces.get(lIdDeLaPiece).getMetteurEnScene() == metteurEnScene) {
+            if (lesPieces.get(lIdDeLaPiece).titre.trim().equalsIgnoreCase(titre) && lesPieces.get(lIdDeLaPiece).getMetteurEnScene().trim().equalsIgnoreCase(metteurEnScene)) {
                 return lesPieces.get(lIdDeLaPiece);
             }
         }
@@ -136,7 +136,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             if (rechercherPiece(titre, metteurEnScene) == null) {
                 lesPieces.put(p.getIdPieceTheatre(), p);
             } else
-                throw new IllegalArgumentException("Le film existe deja");
+                throw new IllegalArgumentException("La piece existe deja");
         } catch (ClassCastException | NullPointerException e1) {
             e1.getMessage();
         }

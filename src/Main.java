@@ -54,14 +54,34 @@ public class Main {
                         String realisateur = Console.saisieUtilisateur("realisateur: ");
                         int duree = Console.saisieUtilisateurNumeric("duree: ");
                         gps.ajouterFilm(titre, realisateur, duree);
-                        System.out.println(gps.lesFilms());
-                    } catch (IllegalArgumentException e){
-                        System.out.println("");
-                        System.out.println(e.getMessage());
-                        System.out.println("");
-                    }
-                    System.out.println("");
+                        System.out.println();
 
+                        System.out.println(gps.lesFilms());
+                        System.out.println();
+
+                    } catch (IllegalArgumentException e){
+                        System.out.println();
+                        System.out.println(e.getMessage());
+                        System.out.println();
+                    }
+                    System.out.println();
+                    break;
+                case 2:
+                    try {
+                        String titre = Console.saisieUtilisateur("titre: ");
+                        String metteurEnScene = Console.saisieUtilisateur("metteur en scene: ");
+                        int nbEntreactes = Console.saisieUtilisateurNumeric("nombre d'entractes: ");
+                        gps.ajouterPiece(titre, metteurEnScene, nbEntreactes);
+                        System.out.println();
+                        System.out.println(gps.lesPieces());
+                        System.out.println();
+                    } catch (IllegalArgumentException e){
+                        System.out.println();
+                        System.out.println(e.getMessage());
+                        System.out.println();
+                    }
+                    System.out.println();
+                    break;
             }
 
         } while (choixUtilisateur != 9);
