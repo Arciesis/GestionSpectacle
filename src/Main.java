@@ -4,16 +4,23 @@ public class Main {
     public static void main(String args[]) {
 
         // write your code here
-       GestionProgrammationSemaine gps = new GestionProgrammationSemaine();
-       gps.ajouterFilm("le titre d'un film","J.J Abrams", 150);
-       gps.ajouterFilm("un autre titre", "Cristopher Nolan", 184);
+        GestionProgrammationSemaine gps = new GestionProgrammationSemaine();
+        gps.ajouterFilm("le titre d'un film", "J.J Abrams", 150);
+        gps.ajouterFilm("un autre titre", "Cristopher Nolan", 184);
 
 
         gps.ajouterInterprete(100, "JeNeSaisPlus");
         gps.ajouterInterprete(101, "bah la nonplus");
+        gps.ajouterSeanceFilm(100,1,new Horaire(14,30),10);
+        gps.ajouterSeanceFilm(100,1,new Horaire(14,30),20);
+
+
 
         gps.ajouterPiece("les fourberies de scapin", "didier",2);
         gps.ajouterPiece("Romeo et Juliette", "didier",2);
+        gps.ajouterSeanceTheatre(1001,4,new Horaire(20,5),70);
+        gps.ajouterSeanceTheatre(1001,4,new Horaire(20,5),80);
+
 
         /*
         Spectacle lordOfRings = new Film("Le Seignieur des Anneaux", 180, "peter Jackson", "Vigo");
@@ -32,16 +39,16 @@ public class Main {
         System.out.println(gps.lesSallesFilm());
         System.out.println(gps.lesSallesTheatre());
         System.out.println("");
-
-
-        //a tester en ajoutant des seance aux film et pièce créer precédament avec la methode "ajouterSeance..." de gps
-        System.out.println(gps.lesSeancesFilm(103));
-        System.out.println(gps.lesSeancesTheatre(103));
-
-        gps.ajouterPiece("Mon cul lulu", "J'en connais pas dsl",4);
         System.out.println(gps.toString());
-        gps.ajouterInterprete(1000,"JEAN JACQUES DE MON miraille");
-        System.out.println(gps.rechercherPiece("Mon cul lulu","'en connais pas dsl"));
+        System.out.println("");
+
+
+        System.out.println(gps.lesSeancesFilm(100));
+        System.out.println("");
+
+        System.out.println(gps.lesSeancesTheatre(1001));
+
+
 
     }
 

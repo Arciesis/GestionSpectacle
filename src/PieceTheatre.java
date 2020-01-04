@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class PieceTheatre extends Spectacle {
 
     //Champs de la classe
@@ -82,10 +84,15 @@ public class PieceTheatre extends Spectacle {
      */
     public boolean ajouterSeanceTheatre (SeanceTheatre s) {
         try{
-            for ( Seance unique : super.GestionSeanceSpectacle){
-                if (unique.leCreneau.getJour()==s.leCreneau.getJour())
+            Iterator<Seance> itSeanceSpectacle = super.GestionSeanceSpectacle.iterator();
+            while(itSeanceSpectacle.hasNext()) {
+                SeanceTheatre unqique = (SeanceTheatre) itSeanceSpectacle.next();
+                int idSalle = unqique.getLaSalleTheatre().numéro;
+                if (unqique.leCreneau.getJour() == s.leCreneau.getJour() &&  idSalle==s.getLaSalleTheatre().numéro){
                     return false;
+                }
             }
+
             s.getLaSalleTheatre().ajouterCreneau(s.leCreneau);
             return super.GestionSeanceSpectacle.add(s);
         }catch (ClassCastException | NullPointerException e1){
