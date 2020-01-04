@@ -147,7 +147,7 @@ public class Main {
                             int heures = Console.saisieUtilisateurNumeric("heures: ");
                             int minutes = Console.saisieUtilisateurNumeric("minutes: ");
 
-                            System.out.println(gps.getNbPlacesDispo(idPiece,jour));
+                            System.out.println("Nombre de places restantes"+gps.getNbPlacesDispo(idPiece,jour));
 
                             int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
                             int nbFauteuils = Console.saisieUtilisateurNumeric("nombre de fauteuils: ");
