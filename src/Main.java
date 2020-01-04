@@ -110,26 +110,26 @@ public class Main {
                         System.out.println(gps.lesFilms());
                         int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
                         String lesSeances = gps.lesSeancesFilm(idFilm);
-                        if (lesSeances != null){
+                        if (lesSeances != null) {
                             System.out.println(lesSeances);
 
                             int jour = Console.saisieUtilisateurNumeric("jour: ");
                             int heures = Console.saisieUtilisateurNumeric("heures: ");
                             int minutes = Console.saisieUtilisateurNumeric("minutes: ");
 
-                            System.out.println(gps.getNbPlacesDispo(idFilm,jour,heures,minutes));
+                            System.out.println(gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
 
                             int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
                             int mbPlacesTarifsReduit = Console.saisieUtilisateurNumeric("nombre de places tarif reduit: ");
 
-                            gps.vendrePlaceFilmTN(idFilm,jour,new Horaire(heures,minutes),nbPlacesTN);
-                            gps.vendrePlaceFilmTR(idFilm,jour,new Horaire(heures,minutes),nbPlacesTN);
+                            gps.vendrePlaceFilmTN(idFilm, jour, new Horaire(heures, minutes), nbPlacesTN);
+                            gps.vendrePlaceFilmTR(idFilm, jour, new Horaire(heures, minutes), nbPlacesTN);
 
                             System.out.println("Places achetees");
 
                         } else System.out.println("Aucune Seance");
 
-                    } catch (IllegalArgumentException | ArithmeticException e){
+                    } catch (IllegalArgumentException | ArithmeticException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
                         System.out.println();
@@ -140,31 +140,45 @@ public class Main {
                         System.out.println(gps.lesPieces());
                         int idPiece = Console.saisieUtilisateurNumeric("idPiece: ");
                         String lesSeances = gps.lesSeancesTheatre(idPiece);
-                        if (lesSeances != null){
+                        if (lesSeances != null) {
                             System.out.println(lesSeances);
 
                             int jour = Console.saisieUtilisateurNumeric("jour: ");
-                            int heures = Console.saisieUtilisateurNumeric("heures: ");
-                            int minutes = Console.saisieUtilisateurNumeric("minutes: ");
 
-                            System.out.println(gps.getNbPlacesDispo(idPiece,jour));
+                            System.out.println("Nombre de places restantes" + gps.getNbPlacesDispo(idPiece, jour));
 
                             int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
                             int nbFauteuils = Console.saisieUtilisateurNumeric("nombre de fauteuils: ");
 
-                            gps.vendrePlacePieceTN(idPiece,jour,nbPlacesTN);
-                            gps.vendrePlaceFauteuilPiece(idPiece,jour,nbPlacesTN);
+                            gps.vendrePlacePieceTN(idPiece, jour, nbPlacesTN);
+                            gps.vendrePlaceFauteuilPiece(idPiece, jour, nbFauteuils);
 
                             System.out.println("Places achetees");
 
                         } else System.out.println("Aucune Seance");
 
-                    } catch (IllegalArgumentException | ArithmeticException e){
+                    } catch (IllegalArgumentException | ArithmeticException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
                         System.out.println();
                     }
+                    break;
+                case 8:
+                    try {
+                        System.out.println(gps.lesFilms());
+                        System.out.println();
+                        System.out.println(gps.lesPieces());
 
+                        int idSpectacle = Console.saisieUtilisateurNumeric("numero du spectacle: ");
+                        System.out.println("chiffre d'affaire : " + gps.chiffreAffaires(idSpectacle));
+                        System.out.println("taux de remaplissage" + gps.getTauxRemplissage(idSpectacle));
+
+                    } catch (IllegalArgumentException e) {
+                        System.out.println();
+                        System.out.println(e.getMessage());
+                        System.out.println();
+                    }
+                    break;
 
             }
 
