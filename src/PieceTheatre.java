@@ -96,8 +96,7 @@ public class PieceTheatre extends Spectacle {
             }
 
             s.getLaSalleTheatre().ajouterCreneau(s.leCreneau);
-            boolean test = super.GestionSeanceSpectacle.add(s);
-            return test;
+            super.GestionSeanceSpectacle.add(s);
         }catch (ClassCastException | NullPointerException e1){
             e1.getMessage();
         }

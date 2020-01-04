@@ -1,10 +1,25 @@
 import java.util.*;
 
 public class Spectacle {
+
+    /**
+     * id du Spectacle
+     */
     protected int idSpectacle;
+
+    /**
+     * Titre du Spectacle
+     */
     protected String titre;
+
+    /**
+     * liste des Interpretes du spectacle;
+     */
     protected Interpretes lesInterpretes;
 
+    /**
+     * Collection de l'ensemble des séances pour un spectacle
+     */
     protected SortedSet<Seance> GestionSeanceSpectacle;
 
     /**
@@ -24,18 +39,34 @@ public class Spectacle {
         }
     }
 
+    /**
+     *
+     * @return idSpectacle
+     */
     public int getIdSpectacle() {
         return idSpectacle;
     }
 
+    /**
+     *
+     * @return titre
+     */
     public String getTitre() {
         return titre;
     }
 
+    /**
+     *
+     * @return lesInterpretes
+     */
     public Interpretes getLesInterpretes() {
         return lesInterpretes;
     }
 
+    /**
+     *
+     * @return GestionSeanceSpectacle
+     */
     public SortedSet<Seance> getGestionSeanceSpectacle() {
         return GestionSeanceSpectacle;
     }
@@ -70,6 +101,10 @@ public class Spectacle {
         return listeSeances;
     }
 
+    /**
+     *
+     * @return le taux de remplissage moyen pour toutes les séance du spectacle
+     */
     public double tauxRemplissageMoyenSpectacle(){
         int cpt =0;
         double tauxRemplissage=0;
@@ -85,6 +120,10 @@ public class Spectacle {
         else return 0;
     }
 
+    /**
+     *
+     * @return retourn le chiffre affaire total du spectacle
+     */
     public double ChiffreAffaire(){
         double chiffreAffaire=0;
         Iterator<Seance> itSeance = GestionSeanceSpectacle.iterator();

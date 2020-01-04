@@ -67,6 +67,10 @@ public class SeanceFilm extends Seance implements Comparable<SeanceFilm>{
             return 0.0;
     }
 
+    /**
+     *
+     * @return le chiffre d'affaire de la séance
+     */
     public double chiffreAffaire(){
         double CA=0;
         CA=(nbplacesTarifReduit*(laSalle.getTarif()*0.6))+(super.nbPlacesVenduesTarifNormal*(laSalle.getTarif()));
@@ -109,6 +113,11 @@ public class SeanceFilm extends Seance implements Comparable<SeanceFilm>{
                 Objects.equals(laSalle, that.laSalle);
     }
 
+    /**
+     *
+     * @param seanceFilm
+     * @return Compare les séances films entre elles
+     */
     public int compareTo(SeanceFilm seanceFilm) {
         if ( this.getLaSalle().getNuméro() != seanceFilm.getLaSalle().getNuméro())  {
             return 1;
