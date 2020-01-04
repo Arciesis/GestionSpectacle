@@ -455,6 +455,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         return nomSalle;
     }
 
+
     @Override
     public String lesSallesTheatre() {
         String nomSalleTheatre = "Les Salles de théatre présentes sont : { ";
@@ -470,16 +471,27 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public String lesSeancesTheatre(int idPiece) throws IllegalArgumentException {
-        String SeanceTheatre = "Les séances de théatre présentes sont : {    ";
+        String seanceTheatre = "Les séances de théatre présentes sont : [\n";
         Set<Integer> myKeys = this.lesPieces.keySet();
 
         if (myKeys.contains(idPiece)) {
             PieceTheatre pieceTheatre = this.lesPieces.get(idPiece);
-            for (Seance s : pieceTheatre.GestionSeanceSpectacle) {
-                SeanceTheatre = SeanceTheatre + s.toString() + " ; ";
-            }
-            SeanceTheatre += "   }";
-            return SeanceTheatre;
+            if(!pieceTheatre.getGestionSeanceSpectacle().isEmpty()){
+
+                for (Seance s : pieceTheatre.GestionSeanceSpectacle) {
+                    int nbplacvendu= (((SeanceTheatre) s).getNbPlacesVenduesTarifNormal()+((SeanceTheatre) s).getFauteuilsVendues());
+
+                    String laseance=" Séance du "+s.getLeCreneau().getJour()+" "+s.getLeCreneau().getHeureDebut().getHeures()+"h"+s.getLeCreneau().getHeureDebut().getMinutes()+" "+s.getLeCreneau().getHeureFin().getHeures()+"h"+s.getLeCreneau().getHeureFin().getMinutes()+
+                            "\nNombre de Places vendues : "+nbplacvendu+
+                            "\nNombre de Places vendues au tarif fauteuil : "+((SeanceTheatre) s).getFauteuilsVendues()+
+                            "\nEn salle numéro "+((SeanceTheatre) s).getLaSalleTheatre().getNuméro();
+
+
+                    seanceTheatre = seanceTheatre + laseance + "\n\n";
+                }
+                seanceTheatre += "   ]";
+                return seanceTheatre;
+            }else return null;
         } else {
             throw new IllegalArgumentException("Pièce inéxistante");
         }
@@ -487,16 +499,27 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public String lesSeancesFilm(int idFilm) throws IllegalArgumentException {
-        String SeanceFlim = "Les séances de films présentes sont : {    ";
+        String SeancedeFlim = "Les séances de films présentes sont : [\n";
         Set<Integer> myKeys = this.lesFilms.keySet();
 
         if (myKeys.contains(idFilm)) {
             Film film = this.lesFilms.get(idFilm);
-            for (Seance s : film.GestionSeanceSpectacle) {
-                SeanceFlim = SeanceFlim + s.toString() + " ; ";
-            }
-            SeanceFlim += "   }";
-            return SeanceFlim;
+            if(!film.getGestionSeanceSpectacle().isEmpty()) {
+
+                for (Seance s : film.GestionSeanceSpectacle) {
+                    int nbplacvendu=(((SeanceFilm) s).getNbplacesTarifReduit()+s.getNbPlacesVenduesTarifNormal());
+
+                    String laseance=" Séance du "+s.getLeCreneau().getJour()+" "+s.getLeCreneau().getHeureDebut().getHeures()+"h"+s.getLeCreneau().getHeureDebut().getMinutes()+" "+s.getLeCreneau().getHeureFin().getHeures()+"h"+s.getLeCreneau().getHeureFin().getMinutes()+
+                            "\nNombre de places Vendues: "+nbplacvendu+
+                            "\nNombre de places vendues au tarif réduit: "+((SeanceFilm) s).getNbplacesTarifReduit()+
+                            "\nEn salle numéro "+((SeanceFilm) s).getLaSalle().getNuméro();
+
+
+                    SeancedeFlim = SeancedeFlim + laseance +"\n\n";
+                }
+                SeancedeFlim += "   ]";
+                return SeancedeFlim;
+            }else return null;
         } else {
             throw new IllegalArgumentException("Film inéxistant");
         }

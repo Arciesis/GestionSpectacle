@@ -1,7 +1,7 @@
 
 public class Main {
     public static void main(String args[]) {
-        GestionProgrammationSemaine gps = new GestionProgrammationSemaine();
+        1GestionProgrammationSemaine gps = new GestionProgrammationSemaine();
         int choixUtilisateur = -1;
         do {
             Console.affMenu();
