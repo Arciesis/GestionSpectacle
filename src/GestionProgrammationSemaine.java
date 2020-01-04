@@ -526,7 +526,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public boolean existeFilm(int idFilm) {
-        if (lesFilms.containsKey(idFilm)) {
+        if (this.lesFilms.containsKey(idFilm)) {
             return true;
         } else return false;
     }
@@ -545,9 +545,6 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             for (Seance item :
                     s.getGestionSeanceSpectacle()) {
 
-//                Horaire hd = new Horaire(heures, minutes);
-//                Creneau c = new Creneau(jour,hd,)
-
                 if (item.getLeCreneau().getJour() == jour){
                     if (item.getLeCreneau().getHeureDebut().getHeures() == heures){
                         if (item.getLeCreneau().getHeureDebut().getMinutes() == minutes){
@@ -563,12 +560,22 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public boolean existeSalleFilm(int idSalle) {
-        return false;
+        Set<Integer> myKeys = this.lesSalles.keySet();
+        if (myKeys.contains(idSalle)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean existeSalleTheatre(int idSalle) {
-        return false;
+        Set<Integer> myKeys = this.lesSallesTheatres.keySet();
+        if (myKeys.contains(idSalle)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -625,17 +632,38 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public boolean estUnFilm(int numSpectacle) {
-        return false;
+        Set<Integer> myKeys = this.lesFilms.keySet();
+
+        if (myKeys.contains(numSpectacle)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override
     public boolean estUnePiece(int numSpectacle) {
-        return false;
+        Set<Integer> myKeys = this.lesPieces.keySet();
+
+        if (myKeys.contains(numSpectacle)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public Spectacle getSpectacle(int numSpectacle) {
-        return null;
+        Set<Integer> myKeys = this.lesFilms.keySet();
+        Set<Integer> myKeys2 = this.lesPieces.keySet();
+        if (myKeys.contains(numSpectacle)) {
+            return lesFilms.get(numSpectacle);
+        } else if (myKeys2.contains(numSpectacle)) {
+            return lesPieces.get(numSpectacle);
+        } else {
+            return null;
+        }
     }
 
     @Override
