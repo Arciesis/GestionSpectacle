@@ -1,4 +1,3 @@
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 public class Main {
     public static void main(String args[]) {
@@ -11,25 +10,24 @@ public class Main {
 
         gps.ajouterInterprete(100, "JeNeSaisPlus");
         gps.ajouterInterprete(101, "bah la nonplus");
-        gps.ajouterSeanceFilm(100,1,new Horaire(14,30),10);
-        gps.ajouterSeanceFilm(100,2,new Horaire(14,30),20);
+        gps.ajouterSeanceFilm(100, 1, new Horaire(14, 30), 10);
+        gps.ajouterSeanceFilm(100, 1, new Horaire(14, 30), 20);
 
 
-
-        gps.ajouterPiece("les fourberies de scapin", "didier",2);
-        gps.ajouterPiece("Romeo et Juliette", "didier",2);
-        gps.ajouterSeanceTheatre(1001,4,new Horaire(20,5),70);
-        gps.ajouterSeanceTheatre(1001,5,new Horaire(20,5),80);
-
+        gps.ajouterPiece("les fourberies de scapin", "didier", 2);
+        gps.ajouterPiece("Romeo et Juliette", "didier", 2);
+        gps.ajouterSeanceTheatre(1001, 4, new Horaire(20, 5), 70);
+        gps.ajouterSeanceTheatre(1001, 4, new Horaire(20, 5), 80);
 
 
+        gps.vendrePlaceFilmTN(100, 1, new Horaire(14, 30), 46);
+        System.out.println(gps.getNbPlacesDispo(100, 1, 14, 30));
+        gps.vendrePlaceFilmTR(100, 1, new Horaire(14, 30), 25);
+        System.out.println(gps.getNbPlacesDispo(100, 1, 14, 30));
 
-
-        System.out.println(gps.getNbPlacesDispo(100,1,14,30));
-        System.out.println(gps.getNbPlacesDispo(100,2,14,30));
-
-        System.out.println(gps.getNbPlacesDispo(1001,4,19,5));
-        System.out.println(gps.getNbPlacesDispo(1001,5,18,5));
+        gps.vendrePlacePieceTN(1001, 4, 10);
+        gps.vendrePlaceFauteuilPiece(1001,4,160);
+        System.out.println(gps.getNbPlacesDispo(1001, 4, 18, 5));
 
 
         /*System.out.println("");
@@ -39,7 +37,6 @@ public class Main {
         System.out.println("");
 
         System.out.println(gps.lesSeancesTheatre(1001));*/
-
 
 
     }

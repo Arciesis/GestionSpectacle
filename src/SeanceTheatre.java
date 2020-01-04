@@ -92,7 +92,9 @@ public class SeanceTheatre extends Seance implements Comparable<SeanceTheatre> {
      */
     public void vendrePlacesFauteuils(int nbre) throws ArithmeticException {
         if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre) {
-            this.fauteuilsVendues += nbre;
+            if (nbre <= laSalleTheatre.getNbFauteuils()) {
+                this.fauteuilsVendues += nbre;
+            } else throw new ArithmeticException("nombre de fauteuils insufisant");
         } else
             throw new ArithmeticException("nombre de places insuffisantes");
     }
