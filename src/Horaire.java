@@ -22,7 +22,7 @@ public class Horaire {
             this.minutes = minutes;
             this.heures = heures;
         } else {
-            throw new InvalidParameterException("Heures ou minutes invalide dans Horaire.Horaire()");
+            throw new InvalidParameterException("Heures ou minutes invalide");
         }
     }
 

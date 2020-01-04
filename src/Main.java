@@ -59,7 +59,7 @@ public class Main {
                         System.out.println(gps.lesFilms());
                         System.out.println();
 
-                    } catch (IllegalArgumentException e){
+                    } catch (IllegalArgumentException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
                         System.out.println();
@@ -75,7 +75,7 @@ public class Main {
                         System.out.println();
                         System.out.println(gps.lesPieces());
                         System.out.println();
-                    } catch (IllegalArgumentException e){
+                    } catch (IllegalArgumentException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
                         System.out.println();
@@ -90,9 +90,11 @@ public class Main {
                         String interprete = Console.saisieUtilisateur("interprete: ");
                         int numSpectacle = Console.saisieUtilisateurNumeric("numero du spectacle: ");
                         gps.ajouterInterprete(numSpectacle, interprete);
+
+                        System.out.println();
                         System.out.println("interprete ajoute");
                         System.out.println();
-                    }catch (IllegalArgumentException e){
+                    } catch (IllegalArgumentException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
                         System.out.println();
@@ -101,21 +103,27 @@ public class Main {
                 case 4:
 
                     try {
-                        if (Console.affAjouterSeanceFilm(gps)){
-                        System.out.println();
-                        int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
-                        int jour = Console.saisieUtilisateurNumeric("jour de diffusion: ");
-                        int hd = Console.saisieUtilisateurNumeric("heure de debut: ");
-                        int md = Console.saisieUtilisateurNumeric("minutes de debut: ");
-                        int idSalle = Console.saisieUtilisateurNumeric("id de la salle: ");
+                        if (Console.affAjouterSeanceFilm(gps)) {
+                            System.out.println();
+                            int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
+                            int jour = Console.saisieUtilisateurNumeric("jour de diffusion: ");
+                            int hd = Console.saisieUtilisateurNumeric("heure de debut: ");
+                            int md = Console.saisieUtilisateurNumeric("minutes de debut: ");
+                            int idSalle = Console.saisieUtilisateurNumeric("id de la salle: ");
 
-                        gps.ajouterSeanceFilm(idFilm, jour, new Horaire(hd, md), idSalle);
-                    } catch (IllegalArgumentException | IllegalStateException e){
-                        System.out.println();
-                        System.out.println(e.getMessage());
-                        System.out.println();
+                            gps.ajouterSeanceFilm(idFilm, jour, new Horaire(hd, md), idSalle);
+                            System.out.println("Seance ajoute");
+                        }
+                        } catch(IllegalArgumentException | IllegalStateException e){
+                            System.out.println();
+                            System.out.println(e.getMessage());
+                            System.out.println();
+                        }
+                        break;
                     }
-            }
+            case 5:
+
+
 
         } while (choixUtilisateur != 9);
 

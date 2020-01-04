@@ -89,7 +89,7 @@ public class Console {
     }
 
     public static boolean affAjouterSeanceFilm(GestionProgrammationSemaine gps) {
-        if (gps.lesFilms().equalsIgnoreCase("{ }")) {
+        if (!gps.lesFilms().equalsIgnoreCase("Les films présents sont : { }")) {
             System.out.println(gps.lesFilms());
             return true;
         } else {
