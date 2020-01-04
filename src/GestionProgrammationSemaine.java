@@ -640,7 +640,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
         Iterator<Integer> iterator2 = this.lesSallesTheatres.keySet().iterator();
         while(iterator2.hasNext()){
-            int idSalleTheatre = iterator1.next();
+            int idSalleTheatre = iterator2.next();
             SalleTheatre salleTheatre = this.lesSallesTheatres.get(idSalleTheatre);
             salleTheatre.getLesCreneauxOccupes().clear();
         }
