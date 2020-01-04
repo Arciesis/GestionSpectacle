@@ -16,11 +16,6 @@ public class PieceTheatre extends Spectacle {
      */
     private int idPieceTheatre;
 
-    /**
-     * est utilise pour l'incrementation de l'id
-     */
-    private static int idPieceTheatreSuivant;
-
 
     /**
      * le nombre d'entractes de la piece de theatre

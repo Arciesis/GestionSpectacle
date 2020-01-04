@@ -62,4 +62,17 @@ public class Horaire {
                 heures == horaire.heures;
     }
 
+    public Horaire add(int duree) {
+
+
+        int totalminutes=this.getHeures()*60 + this.getMinutes() + duree;
+        // redecomposer en hm
+        int m = (totalminutes % 60);
+        int h = (int)(totalminutes / 60.0);
+        if (h>23)
+            h-=24;
+
+        return new Horaire(h, m);
+    }
+
 }
