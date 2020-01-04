@@ -17,6 +17,12 @@ public class PieceTheatre extends Spectacle {
     private int idPieceTheatre;
 
     /**
+     * est utilise pour l'incrementation de l'id
+     */
+    private static int idPieceTheatreSuivant;
+
+
+    /**
      * le nombre d'entractes de la piece de theatre
      */
     private int entractes;
@@ -41,7 +47,8 @@ public class PieceTheatre extends Spectacle {
     }
 
     {
-        this.idPieceTheatre = idPieceTheatreSuivant;
+        idSpectacle=idPieceTheatreSuivant;
+        this.idPieceTheatre = idSpectacle;
         idPieceTheatreSuivant += 1;
     }
 
@@ -73,6 +80,26 @@ public class PieceTheatre extends Spectacle {
         return this.entractes;
     }
 
+    /**
+     *
+     * @param s
+     * @return true si l'on peut ajouter la séance de théatre (1 seule par jour) false sinon
+     */
+    public boolean ajouterSeanceTheatre (SeanceTheatre s) {
+        try{
+            for ( Seance unique : super.GestionSeanceSpectacle){
+                if (unique.leCreneau.getJour()==s.leCreneau.getJour())
+                    return false;
+            }
+            s.getLaSalleTheatre().ajouterCreneau(s.leCreneau);
+            return super.GestionSeanceSpectacle.add(s);
+        }catch (ClassCastException | NullPointerException e1){
+            e1.getMessage();
+        }
+        return false;
+    }
+
+
     @Override
     public String toString() {
         return "PieceTheatre{" +
@@ -84,24 +111,10 @@ public class PieceTheatre extends Spectacle {
                 ", GestionSeanceSpectacle=" + GestionSeanceSpectacle +
                 '}';
     }
-
-    /**
-     *
-     * @param s
-     * @return true si l'on peut ajouter la séance de théatre (1 seule par jour) false sinon
-     */
-    public boolean ajouterSeanceTheatre (SeanceTheatre s) {
-        try{
-            for ( Seance unique : GestionSeanceSpectacle){
-                if (unique.leCreneau.getJour()==s.leCreneau.getJour())
-                    return false;
-            }
-            s.getLaSalleTheatre().ajouterCreneau(s.leCreneau);
-            return GestionSeanceSpectacle.add(s);
-        }catch (ClassCastException | NullPointerException e1){
-            e1.getMessage();
-        }
-        return false;
-    }
-
 }
+
+
+
+
+
+

@@ -21,7 +21,7 @@ public class SeanceFilm extends Seance {
      * @param laSalle                    la salle de projection
      * @param nbplacesTarifReduit        le nombre de places vendu a tarid reduit
      */
-    public SeanceFilm(Creneau leCreneau, int nbPlacesVenduesTarifNormal, Salle laSalle, int nbplacesTarifReduit) {
+    public SeanceFilm(Creneau leCreneau,  Salle laSalle, int nbPlacesVenduesTarifNormal, int nbplacesTarifReduit) {
         super(leCreneau, nbPlacesVenduesTarifNormal);
         this.laSalle = laSalle;
         this.nbplacesTarifReduit = nbplacesTarifReduit;
@@ -92,7 +92,7 @@ public class SeanceFilm extends Seance {
      *
      * @param nbre le nombre de places a vendre
      */
-    public void vendrelacesTR(int nbre) throws ArithmeticException{
+    public void vendrePlacesTR(int nbre) throws ArithmeticException{
         if (laSalle.places - (super.nbPlacesVenduesTarifNormal + this.nbplacesTarifReduit) >= nbre) {
             this.nbplacesTarifReduit += nbre;
         } else
