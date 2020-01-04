@@ -1,7 +1,4 @@
-import java.util.Iterator;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.Set;
+import java.util.*;
 
 public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
@@ -581,8 +578,24 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
     @Override
-    public int getNbPlacesDispo(int idPiece, int jour) {
-        return 0;
+    public int getNbPlacesDispo(int idPiece, int jour) throws IllegalArgumentException {
+        Set<Integer> myKeys = this.lesPieces.keySet();
+
+        //On ne recupere qu'une seule seance car c'est un piece de theatre
+        SeanceTheatre maSeance = (SeanceTheatre) this.lesPieces.get(idPiece).rechercheListeSeance(jour).get(0);
+
+        // test si la piece existe
+        if (myKeys.contains(idPiece)) {
+
+            //test si la seance existe
+            if (this.existeSeanceCeJour(idPiece, jour)) {
+
+                int nbPlacesTotal = maSeance.getLaSalleTheatre().places;
+                int placesVendues = maSeance.getNbPlacesVenduesTarifNormal();
+                return nbPlacesTotal - placesVendues;
+
+            } else throw new IllegalArgumentException("Seance inexistante");
+        } else throw new IllegalArgumentException("Piece inexistante");
     }
 
     @Override
