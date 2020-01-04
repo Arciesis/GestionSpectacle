@@ -231,7 +231,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     @Override
     public void ajouterSeanceTheatre(int idPiece, int jour, Horaire debut, int idSalle) throws IllegalArgumentException, IllegalStateException {
 
-        // on test l'existnce du film
+        // on test l'existnce de la pièce
         Set<Integer> myKeys = this.lesPieces.keySet();
         if (myKeys.contains(idPiece)) {
             PieceTheatre pieceTheatre = this.lesPieces.get(idPiece);
@@ -248,7 +248,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
                 if (myKeys2.contains(idSalle)) {
                     SalleTheatre salle = this.lesSallesTheatres.get(idSalle);
 
-                    //test si le jour est deja une clé dans l'ensemble des créneaux de la salle , si oui alors c'est qu'il y a deja un créneau pour ce jour dans la salle
+                    //test si le jour est deja une clé dans l'ensemble des créneaux de la salle et si il sagit de la meme salle, si oui alors c'est qu'il y a deja un créneau pour ce jour dans la salle
                     //il ne peut y avoir qu'un seul créneau par jour de 3h
                     if (salle.lesCreneauxOccupes.containsKey(jour)) {
                         throw new IllegalStateException("Créneau indisponible pour dans cette salle");
