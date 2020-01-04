@@ -214,13 +214,11 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             PieceTheatre p = lesPieces.get(idPiece);
 
             Iterator<Seance> it = p.GestionSeanceSpectacle.iterator();
-            if (it.hasNext()) {
+            while (it.hasNext()) {
                 Seance s = it.next();
                 if (s.leCreneau.getJour() == jour) {
                     return true;
                 }
-            } else {
-                return false;
             }
         } else {
             throw new IllegalArgumentException("Piece inexistante");
@@ -580,9 +578,14 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     @Override
     public int getNbPlacesDispo(int idPiece, int jour) throws IllegalArgumentException {
         Set<Integer> myKeys = this.lesPieces.keySet();
+        SeanceTheatre maSeance = null;
 
-        //On ne recupere qu'une seule seance car c'est un piece de theatre
-        SeanceTheatre maSeance = (SeanceTheatre) this.lesPieces.get(idPiece).rechercheListeSeance(jour).get(0);
+        if (!this.lesPieces.get(idPiece).rechercheListeSeance(jour).isEmpty()){
+
+            //On ne recupere qu'une seule seance car c'est une piece de theatre
+            maSeance = (SeanceTheatre) this.lesPieces.get(idPiece).rechercheListeSeance(jour).get(0);
+        } else throw new IllegalArgumentException("Seance inexistante ce jour ci");
+
 
         // test si la piece existe
         if (myKeys.contains(idPiece)) {
