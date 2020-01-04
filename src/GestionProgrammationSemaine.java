@@ -539,13 +539,22 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
     @Override
-    public boolean existeSeanceFilm(int idFilm, int jour, int heures, int minutes) {
+    public boolean existeSeanceFilm(int idFilm, int jour, int heures, int minutes) throws IllegalArgumentException {
         if (lesFilms.containsKey(idFilm)) {
-            Spectacle s = lesFilms.get(idFilm);
+            Film s = lesFilms.get(idFilm);
             for (Seance item :
                     s.getGestionSeanceSpectacle()) {
-                if (item.equals(new Seance(new Creneau(jour, heures, minutes)), 0))
-                    return true
+
+//                Horaire hd = new Horaire(heures, minutes);
+//                Creneau c = new Creneau(jour,hd,)
+
+                if (item.getLeCreneau().getJour() == jour){
+                    if (item.getLeCreneau().getHeureDebut().getHeures() == heures){
+                        if (item.getLeCreneau().getHeureDebut().getMinutes() == minutes){
+                            return true;
+                        }
+                    }
+                }
             }
             return false;
         } else throw new IllegalArgumentException("film inexistant");
