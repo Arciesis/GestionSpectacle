@@ -114,16 +114,35 @@ public class Main {
                             gps.ajouterSeanceFilm(idFilm, jour, new Horaire(hd, md), idSalle);
                             System.out.println("Seance ajoute");
                         }
-                        } catch(IllegalArgumentException | IllegalStateException e){
+                    } catch (IllegalArgumentException | IllegalStateException e) {
+                        System.out.println();
+                        System.out.println(e.getMessage());
+                        System.out.println();
+                    }
+                    break;
+                case 5:
+                    try {
+                        if (Console.affAjouterSeancePieceTheatre(gps)) {
                             System.out.println();
-                            System.out.println(e.getMessage());
+                            int idPiece = Console.saisieUtilisateurNumeric("idPiece: ");
+                            int jour = Console.saisieUtilisateurNumeric("jour de diffusion: ");
+                            int hd = Console.saisieUtilisateurNumeric("heure de debut: ");
+                            int md = Console.saisieUtilisateurNumeric("minutes de debut: ");
+                            int idSalle = Console.saisieUtilisateurNumeric("id de la salle: ");
+
+                            gps.ajouterSeanceTheatre(idPiece, jour, new Horaire(hd, md), idSalle);
+                            System.out.println();
+                            System.out.println("Seance ajoute");
                             System.out.println();
                         }
-                        break;
+                    } catch (IllegalArgumentException | IllegalStateException e) {
+                        System.out.println();
+                        System.out.println(e.getMessage());
+                        System.out.println();
                     }
-            case 5:
+                    break;
 
-
+            }
 
         } while (choixUtilisateur != 9);
 

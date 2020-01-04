@@ -97,4 +97,14 @@ public class Console {
             return false;
         }
     }
+
+    public static boolean affAjouterSeancePieceTheatre(GestionProgrammationSemaine gps){
+        if (!gps.lesPieces().equalsIgnoreCase("Les Pièces de théatre présentes sont : { }")){
+            System.out.println(gps.lesPieces());
+            return true;
+        } else {
+            System.out.println("Aucune piece de theatre");
+            return false;
+        }
+    }
 }
