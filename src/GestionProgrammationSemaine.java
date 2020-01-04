@@ -422,7 +422,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
     @Override
-    public String lesFilms(){
+    public String lesFilms() {
         StringBuilder nomFilms = new StringBuilder("Les films présents sont : { ");
         Iterator<Integer> itFilm = this.lesFilms.keySet().iterator();
         while (itFilm.hasNext()) {
@@ -478,40 +478,55 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         String SeanceTheatre = "Les séances de théatre présentes sont : {    ";
         Set<Integer> myKeys = this.lesPieces.keySet();
 
-        if (myKeys.contains(idPiece)){
+        if (myKeys.contains(idPiece)) {
             PieceTheatre pieceTheatre = this.lesPieces.get(idPiece);
-            for ( Seance s : pieceTheatre.GestionSeanceSpectacle) {
+            for (Seance s : pieceTheatre.GestionSeanceSpectacle) {
                 SeanceTheatre = SeanceTheatre + s.toString() + " ; ";
             }
-            SeanceTheatre+= "   }";
+            SeanceTheatre += "   }";
             return SeanceTheatre;
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("Pièce inéxistante");
         }
     }
 
     @Override
-    public String lesSeancesFilm(int idFilm) throws IllegalArgumentException  {
+    public String lesSeancesFilm(int idFilm) throws IllegalArgumentException {
         String SeanceFlim = "Les séances de films présentes sont : {    ";
         Set<Integer> myKeys = this.lesFilms.keySet();
 
-        if (myKeys.contains(idFilm)){
+        if (myKeys.contains(idFilm)) {
             Film film = this.lesFilms.get(idFilm);
-            for ( Seance s : film.GestionSeanceSpectacle) {
+            for (Seance s : film.GestionSeanceSpectacle) {
                 SeanceFlim = SeanceFlim + s.toString() + " ; ";
             }
-            SeanceFlim+= "   }";
+            SeanceFlim += "   }";
             return SeanceFlim;
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("Film inéxistant");
         }
     }
 
     @Override
-    public int getNbPlacesDispo(int numSpectacle, int jour, int heures, int minutes) {
-        return 0;
+    public int getNbPlacesDispo(int numSpectacle, int jour, int heures, int minutes) throws IllegalArgumentException {
+        Set<Integer> myKeys = this.lesFilms.keySet();
+        Set<Integer> myKeys2 = this.lesPieces.keySet();
+
+        if (myKeys.contains(numSpectacle)) {
+            // initialisation de la seance que l'on cherche, est egal a null si il n'y a pas de correspondance
+            SeanceFilm maSeanace = (SeanceFilm) this.lesFilms.get(numSpectacle).rechercheSeance(jour, new Horaire(heures, minutes));
+
+            // Recherche si la seance existe bel et bien
+            if (maSeanace != null) {
+                int nbPlacesTotal = maSeanace.getLaSalle().getPlaces();
+                int nbPLacesVendues = maSeanace.getNbPlacesVenduesTarifNormal() + maSeanace.getNbplacesTarifReduit();
+                return nbPlacesTotal - nbPLacesVendues;
+
+            } else throw new IllegalArgumentException("Seance inexistante");
+        } else if (myKeys2.contains(numSpectacle)) {
+            return this.getNbPlacesDispo(numSpectacle, jour);
+
+        } else throw new IllegalArgumentException("Spectacle inexistant");
     }
 
     @Override
