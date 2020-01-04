@@ -1,6 +1,7 @@
 import java.util.Iterator;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Set;
 
 public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
@@ -415,34 +416,35 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
                     trouve = true;
                 }
             }
+        }
 
 
     }
 
     @Override
-    public String lesFilms() {
-        String nomFilms = "Les films présents sont : { ";
-        Iterator<Integer> itFilm = lesFilms.keySet().iterator();
+    public String lesFilms(){
+        StringBuilder nomFilms = new StringBuilder("Les films présents sont : { ");
+        Iterator<Integer> itFilm = this.lesFilms.keySet().iterator();
         while (itFilm.hasNext()) {
             int idfilm = itFilm.next();
             Film film = this.lesFilms.get(idfilm);
-            nomFilms = nomFilms + film.titre + " ; ";
+            nomFilms.append(film.titre).append(" ; ");
         }
-        nomFilms += "}";
-        return nomFilms;
+        nomFilms.append("}");
+        return nomFilms.toString();
     }
 
     @Override
     public String lesPieces() {
-        String nomPieces = "Les Pièces de théatre présentes sont : { ";
-        Iterator<Integer> itPiece = lesPieces.keySet().iterator();
+        StringBuilder nomPieces = new StringBuilder("Les Pièces de théatre présentes sont : { ");
+        Iterator<Integer> itPiece = this.lesPieces.keySet().iterator();
         while (itPiece.hasNext()) {
             int idPiece = itPiece.next();
             PieceTheatre Piece = this.lesPieces.get(idPiece);
-            nomPieces = nomPieces + Piece.getTitre() + " ; ";
+            nomPieces.append(Piece.getTitre()).append(" ; ");
         }
-        nomPieces += "}";
-        return nomPieces;
+        nomPieces.append("}");
+        return nomPieces.toString();
     }
 
     @Override
