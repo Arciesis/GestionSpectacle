@@ -195,7 +195,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
                     if (salle.estDisponible(c)) {
                         film.ajouterSeanceFilm(new SeanceFilm(c, salle, 0, 0));
                     } else {
-                        throw new IllegalStateException("Créneau indisponible");
+                        throw new IllegalStateException("La salle n'est pas disponible pour ce Créneau ");
                     }
                 } else {
                     throw new IllegalArgumentException("Salle inexistante");
@@ -249,7 +249,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
                     //test si le jour est deja une clé dans l'ensemble des créneaux de la salle et si il sagit de la meme salle, si oui alors c'est qu'il y a deja un créneau pour ce jour dans la salle
                     //il ne peut y avoir qu'un seul créneau par jour de 3h
                     if (salle.lesCreneauxOccupes.containsKey(jour)) {
-                        throw new IllegalStateException("Créneau indisponible pour dans cette salle");
+                        throw new IllegalStateException("Il existe déja une séance programmée ce jour");
                     } else {
                         pieceTheatre.ajouterSeanceTheatre(new SeanceTheatre(c, 0, salle, 0));
                     }
@@ -533,7 +533,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
     @Override
     public boolean existePiece(int idPiece) {
-        if (lesPieces.containsKey(idPiece))
+        if (this.lesPieces.containsKey(idPiece))
             return true;
         else return false;
     }
@@ -590,17 +590,59 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
     }
 
     @Override
-    public boolean salleStandardDisponible(int jour, Horaire debut, int duree, int idSalle) {
-        return false;
+    public boolean salleStandardDisponible(int jour, Horaire debut, int duree, int idSalle) throws IllegalArgumentException{
+        Set<Integer> myKeys = this.lesSalles.keySet();
+        Creneau c = this.CalculHeurreFin(jour,debut,duree);   // Creneaux récupérer avec l'heure de fin
+        if(myKeys.contains((idSalle))) {   // test de l'existence de la salle
+            Salle salle = this.lesSalles.get(idSalle);
+            if (salle.estDisponible(c)){
+                return true;
+            }else {
+                return false;
+            }
+        }else {
+            throw new IllegalArgumentException("Salle inéxistante");
+        }
     }
+
 
     @Override
     public void reinitialiserProgrammation() {
+        Iterator<Integer> iterator1 = this.lesSalles.keySet().iterator();
+        while(iterator1.hasNext()){
+            int idSalle = iterator1.next();
+            Salle salle = this.lesSalles.get(idSalle);
+            salle.getLesCreneauxOccupes().clear();
+        }
 
+        Iterator<Integer> iterator2 = this.lesSallesTheatres.keySet().iterator();
+        while(iterator2.hasNext()){
+            int idSalleTheatre = iterator1.next();
+            SalleTheatre salleTheatre = this.lesSallesTheatres.get(idSalleTheatre);
+            salleTheatre.getLesCreneauxOccupes().clear();
+        }
+
+        this.lesFilms.clear();
+        this.lesPieces.clear();
     }
 
     @Override
-    public int getNbFauteuilsDispo(int idPiece, int jour) {
+    public int getNbFauteuilsDispo(int idPiece, int jour)  throws IllegalArgumentException {
+        Set<Integer> myKeys = this.lesPieces.keySet();
+        if(myKeys.contains(idPiece)){
+            PieceTheatre pieceTheatre =  this.lesPieces.get(idPiece);
+            for( Seance s : pieceTheatre.GestionSeanceSpectacle){
+                if (s.getLeCreneau().getJour()==jour){
+                    SeanceTheatre Seancetheatre = (SeanceTheatre) pieceTheatre.rechercheListeSeance(jour).get(0);
+                    return Seancetheatre.getLaSalleTheatre().getNbFauteuils() - Seancetheatre.getFauteuilsVendues();
+                }else throw new IllegalArgumentException("Aucune Séance ce jour");
+            }
+
+
+        }else {
+            throw new IllegalArgumentException("Pièce inexitante");
+        }
+
         return 0;
     }
 
@@ -609,21 +651,20 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         Set<Integer> myKeys = this.lesPieces.keySet();
         SeanceTheatre maSeance = null;
 
-        if (!this.lesPieces.get(idPiece).rechercheListeSeance(jour).isEmpty()) {
-
-            //On ne recupere qu'une seule seance car c'est une piece de theatre
-            maSeance = (SeanceTheatre) this.lesPieces.get(idPiece).rechercheListeSeance(jour).get(0);
-        } else throw new IllegalArgumentException("Seance inexistante ce jour ci");
-
-
         // test si la piece existe
         if (myKeys.contains(idPiece)) {
+
+            if (!this.lesPieces.get(idPiece).rechercheListeSeance(jour).isEmpty()) {
+
+                //On ne recupere qu'une seule seance car c'est une piece de theatre
+                maSeance = (SeanceTheatre) this.lesPieces.get(idPiece).rechercheListeSeance(jour).get(0);
+            } else throw new IllegalArgumentException("Seance inexistante ce jour ci");
 
             //test si la seance existe
             if (this.existeSeanceCeJour(idPiece, jour)) {
 
-                int nbPlacesTotal = maSeance.getLaSalleTheatre().places;
-                int placesVendues = maSeance.getNbPlacesVenduesTarifNormal();
+                int nbPlacesTotal = maSeance.getLaSalleTheatre().getPlaces();
+                int placesVendues = maSeance.getNbPlacesVenduesTarifNormal()+maSeance.getFauteuilsVendues();
                 return nbPlacesTotal - placesVendues;
 
             } else throw new IllegalArgumentException("Seance inexistante");

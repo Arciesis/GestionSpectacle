@@ -65,6 +65,10 @@ public class SeanceTheatre extends Seance implements Comparable<SeanceTheatre> {
             return 0.0;
     }
 
+    /**
+     *
+     * @return le chiffre d'affaire de la séance
+     */
     public double chiffreAffaire() {
         double CA = 0;
         CA = (fauteuilsVendues * (laSalleTheatre.getTarifSuperieur())) + (super.nbPlacesVenduesTarifNormal * (laSalleTheatre.getTarif()));
@@ -80,7 +84,11 @@ public class SeanceTheatre extends Seance implements Comparable<SeanceTheatre> {
      */
     public void vendrePlacesTN(int nbre) throws ArithmeticException {
         if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre) {
-            super.nbPlacesVenduesTarifNormal += nbre;
+            if (nbre <= ((this.getLaSalleTheatre().getPlaces() - this.getLaSalleTheatre().getNbFauteuils()) - super.nbPlacesVenduesTarifNormal)) {
+                super.nbPlacesVenduesTarifNormal += nbre;
+            }else{
+                throw new ArithmeticException("nombre de place insufisantes");
+            }
         } else
             throw new ArithmeticException("nombre de places insufisantes");
     }
@@ -92,13 +100,18 @@ public class SeanceTheatre extends Seance implements Comparable<SeanceTheatre> {
      */
     public void vendrePlacesFauteuils(int nbre) throws ArithmeticException {
         if (laSalleTheatre.places - (super.nbPlacesVenduesTarifNormal + this.fauteuilsVendues) >= nbre) {
-            if (nbre <= laSalleTheatre.getNbFauteuils()) {
+            if (nbre <= (this.getLaSalleTheatre().getNbFauteuils() - this.getFauteuilsVendues())){
                 this.fauteuilsVendues += nbre;
             } else throw new ArithmeticException("nombre de fauteuils insufisant");
         } else
             throw new ArithmeticException("nombre de places insuffisantes");
     }
 
+    /**
+     *
+     * @param seanceTheatre
+     * @return Compare les séanceTheatre entre elles
+     */
     public int compareTo(SeanceTheatre seanceTheatre) {
         if (this.getLaSalleTheatre().getNuméro() != seanceTheatre.getLaSalleTheatre().getNuméro()) {
             return 1;

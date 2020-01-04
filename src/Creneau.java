@@ -80,40 +80,12 @@ public class Creneau implements Comparable<Creneau> {
     }
 
 
-    /**
-     * Methode de calcul de la duree du creneau
-     *
-     * @return un Integer du nombre de minutes du Creneau
-     */
-    public int calculerDuree() {
-        int duree = 0;
-        if (!(heureDebut.getHeures() > heureFin.getHeures())) {
-            duree = ((this.heureFin.getHeures() - this.heureDebut.getHeures()) * 60
-                    + this.heureFin.getMinutes() - this.heureDebut.getMinutes());
-        } else {
-            duree = (((24 - heureDebut.getHeures()) * 60) + (0 - heureDebut.getMinutes())
-                    + heureFin.getHeures() + heureFin.getMinutes());
-        }
-        return duree;
-
-    }
 
     /**
-     * Test si un creneau est placable apres un creneau existant
      *
-     * @param c le creneau existant
-     * @return true si le creneau est placable et false sinon
+     * @param c
+     * @return 1,-1,0 Compare les Créneaux entre eux pour savoir si on peut placer le créneau passé en paramètre
      */
-    public boolean estPlacable(Creneau c) {
-        if (c.heureFin.getHeures() <= this.heureDebut.getHeures() || c.heureDebut.getHeures()
-                >= this.heureFin.getHeures()) {
-            if (c.heureFin.getMinutes() <= this.heureDebut.getMinutes() || c.heureDebut.getMinutes() >=
-                    this.heureFin.getMinutes()) {
-                return true;
-            } else return false;
-        } else return false;
-    }
-
     @Override
     public int compareTo(Creneau c) {
         if (this.jour < c.jour) {
