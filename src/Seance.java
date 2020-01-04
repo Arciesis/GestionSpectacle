@@ -1,5 +1,5 @@
 
-public class Seance implements Comparable<Seance>{
+public class Seance  {
 
     /**
      * champ le creneau representant le creneau sur lequelle la seance se deroule
@@ -59,40 +59,6 @@ public class Seance implements Comparable<Seance>{
         return this.leCreneau.equals(seance.leCreneau);
     }
 
-
-    /**
-     *
-     * @param seance
-     * @return
-     */
-    @Override
-    //Compare les séances entre elles afin de les ordonné par jour puis par horraire
-    public int compareTo(Seance seance) {
-        if (this.leCreneau.getJour() < seance.leCreneau.getJour()) {
-            return -1;
-        } else if (this.leCreneau.getJour() > seance.leCreneau.getJour()) {
-            return 1;
-        } else {
-            if (this.leCreneau.getHeureDebut().getHeures() == seance.leCreneau.getHeureFin().getHeures()) {
-                if (this.leCreneau.getHeureDebut().getMinutes() >= seance.leCreneau.getHeureFin().getMinutes()) {
-                    return -1;
-                } else return 0;
-            } else if (this.leCreneau.getHeureFin().getHeures() == seance.leCreneau.getHeureDebut().getHeures()) {
-                if (this.leCreneau.getHeureFin().getMinutes() <= seance.leCreneau.getHeureDebut().getMinutes()) {
-                    return 1;
-                } else return 0;
-            } else if (this.leCreneau.getHeureDebut().getHeures() > seance.leCreneau.getHeureFin().getHeures()) {
-                return -1;
-
-            } else if (this.leCreneau.getHeureFin().getHeures() < seance.leCreneau.getHeureDebut().getHeures()) {
-                return 1;
-
-            } else return 0;
-
-
-        }
-
-    }
 
     /**
      *
