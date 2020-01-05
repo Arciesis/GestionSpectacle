@@ -99,7 +99,12 @@ public class Main {
                                 System.out.println();
                                 System.out.println("Seance ajoute");
                                 System.out.println();
-                            } else System.out.println("Il existe deja une seance programmee ce jour");
+                            } else {
+                                System.out.println();
+                                System.out.println("Il existe deja une seance programmee ce jour");
+                                System.out.println();
+
+                            }
                         }
 
                     } catch (IllegalArgumentException | IllegalStateException e) {
