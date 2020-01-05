@@ -117,21 +117,26 @@ public class Main {
                     try {
                         System.out.println(gps.lesFilms());
                         int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
+                        int jour;
+                        int heures;
+                        int minutes;
                         String lesSeances = gps.lesSeancesFilm(idFilm);
                         if (lesSeances != null) {
-                            System.out.println(lesSeances);
+                            do {
+                                System.out.println(lesSeances);
 
-                            int jour = Console.saisieUtilisateurNumeric("jour: ");
-                            int heures = Console.saisieUtilisateurNumeric("heures: ");
-                            int minutes = Console.saisieUtilisateurNumeric("minutes: ");
+                                jour = Console.saisieUtilisateurNumeric("jour: ");
+                                heures = Console.saisieUtilisateurNumeric("heures: ");
+                                minutes = Console.saisieUtilisateurNumeric("minutes: ");
+                            } while (gps.existeSeanceFilm(idFilm,jour,heures,minutes));
 
                             System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
 
                             int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
-                            int mbPlacesTarifsReduit = Console.saisieUtilisateurNumeric("nombre de places tarif reduit: ");
+                            int nbPlacesTarifsReduit = Console.saisieUtilisateurNumeric("nombre de places tarif reduit: ");
 
                             gps.vendrePlaceFilmTN(idFilm, jour, new Horaire(heures, minutes), nbPlacesTN);
-                            gps.vendrePlaceFilmTR(idFilm, jour, new Horaire(heures, minutes), nbPlacesTN);
+                            gps.vendrePlaceFilmTR(idFilm, jour, new Horaire(heures, minutes), nbPlacesTarifsReduit);
 
                             System.out.println("Places achetees");
 
