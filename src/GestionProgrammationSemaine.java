@@ -479,13 +479,11 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             if(!pieceTheatre.getGestionSeanceSpectacle().isEmpty()){
 
                 for (Seance s : pieceTheatre.GestionSeanceSpectacle) {
-                    int nbplacvendu= (((SeanceTheatre) s).getNbPlacesVenduesTarifNormal()+((SeanceTheatre) s).getFauteuilsVendues());
 
                     String laseance=" Séance du "+s.getLeCreneau().getJour()+" "+s.getLeCreneau().getHeureDebut().getHeures()+"h"+s.getLeCreneau().getHeureDebut().getMinutes()+" "+s.getLeCreneau().getHeureFin().getHeures()+"h"+s.getLeCreneau().getHeureFin().getMinutes()+
-                            "\nNombre de Places vendues : "+nbplacvendu+
+                            "\nNombre de Places vendues : "+((SeanceTheatre) s).getNbPlacesVenduesTarifNormal()+
                             "\nNombre de Places vendues au tarif fauteuil : "+((SeanceTheatre) s).getFauteuilsVendues()+
                             "\nEn salle numéro "+((SeanceTheatre) s).getLaSalleTheatre().getNuméro();
-
 
                     seanceTheatre = seanceTheatre + laseance + "\n\n";
                 }
@@ -507,13 +505,11 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             if(!film.getGestionSeanceSpectacle().isEmpty()) {
 
                 for (Seance s : film.GestionSeanceSpectacle) {
-                    int nbplacvendu=(((SeanceFilm) s).getNbplacesTarifReduit()+s.getNbPlacesVenduesTarifNormal());
 
                     String laseance=" Séance du "+s.getLeCreneau().getJour()+" "+s.getLeCreneau().getHeureDebut().getHeures()+"h"+s.getLeCreneau().getHeureDebut().getMinutes()+" "+s.getLeCreneau().getHeureFin().getHeures()+"h"+s.getLeCreneau().getHeureFin().getMinutes()+
-                            "\nNombre de places Vendues: "+nbplacvendu+
+                            "\nNombre de places Vendues: "+((SeanceFilm) s).getNbPlacesVenduesTarifNormal()+
                             "\nNombre de places vendues au tarif réduit: "+((SeanceFilm) s).getNbplacesTarifReduit()+
                             "\nEn salle numéro "+((SeanceFilm) s).getLaSalle().getNuméro();
-
 
                     SeancedeFlim = SeancedeFlim + laseance +"\n\n";
                 }
@@ -640,7 +636,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
         Iterator<Integer> iterator2 = this.lesSallesTheatres.keySet().iterator();
         while(iterator2.hasNext()){
-            int idSalleTheatre = iterator1.next();
+            int idSalleTheatre = iterator2.next();
             SalleTheatre salleTheatre = this.lesSallesTheatres.get(idSalleTheatre);
             salleTheatre.getLesCreneauxOccupes().clear();
         }

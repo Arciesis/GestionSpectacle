@@ -139,7 +139,7 @@ public class Main {
 
                             gps.vendrePlaceFilmTN(idFilm, jour, new Horaire(heures, minutes), nbPlacesTN);
                             gps.vendrePlaceFilmTR(idFilm, jour, new Horaire(heures, minutes), nbPlacesTarifsReduit);
-
+0
                             System.out.println("Places achetees");
 
                         } else System.out.println("Aucune Seance");
