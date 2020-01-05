@@ -114,46 +114,39 @@ public class Main {
                     break;
                 case 6:
                     try {
-
-                        System.out.println(gps.lesFilms());
-                        int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
-                        boolean testIdFilm = false;
-                        boolean testExisteSeance;
+                        int idFilm;
                         int jour;
                         int heures;
                         int minutes;
-                        String lesSeances = gps.lesSeancesFilm(idFilm);
-                        if (lesSeances != null) {
-                            do {
-                                if (testIdFilm) {
-                                    idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
-                                    testIdFilm = true;
-                                }
-
+                        System.out.println(gps.lesFilms());
+                        while (true) {
+                            idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
+                            boolean testExisteSeance;
+                            String lesSeances = gps.lesSeancesFilm(idFilm);
+                            if (lesSeances != null) {
                                 System.out.println(lesSeances);
 
                                 jour = Console.saisieUtilisateurNumeric("jour: ");
                                 heures = Console.saisieUtilisateurNumeric("heures: ");
                                 minutes = Console.saisieUtilisateurNumeric("minutes: ");
 
-                                testExisteSeance =gps.existeSeanceFilm(idFilm, jour, heures, minutes);
-                                if (testExisteSeance){
-                                    testIdFilm = true;
-                                }
+                                testExisteSeance = gps.existeSeanceFilm(idFilm, jour, heures, minutes);
+                                if (testExisteSeance)
+                                    System.out.println("Seance inexistante");
+                                    break;
 
-                            } while (!testExisteSeance && testIdFilm);
+                            } else System.out.println("Aucune Seance");
+                        }
 
-                            System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
+                        System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
 
-                            int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
-                            int nbPlacesTarifsReduit = Console.saisieUtilisateurNumeric("nombre de places tarif reduit: ");
+                        int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
+                        int nbPlacesTarifsReduit = Console.saisieUtilisateurNumeric("nombre de places tarif reduit: ");
 
-                            gps.vendrePlaceFilmTN(idFilm, jour, new Horaire(heures, minutes), nbPlacesTN);
-                            gps.vendrePlaceFilmTR(idFilm, jour, new Horaire(heures, minutes), nbPlacesTarifsReduit);
+                        gps.vendrePlaceFilmTN(idFilm, jour, new Horaire(heures, minutes), nbPlacesTN);
+                        gps.vendrePlaceFilmTR(idFilm, jour, new Horaire(heures, minutes), nbPlacesTarifsReduit);
 
-                            System.out.println("Places achetees");
-
-                        } else System.out.println("Aucune Seance");
+                        System.out.println("Places achetees");
 
                     } catch (IllegalArgumentException | ArithmeticException e) {
                         System.out.println();
