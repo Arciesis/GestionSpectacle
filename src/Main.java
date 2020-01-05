@@ -114,22 +114,23 @@ public class Main {
                     break;
                 case 6:
                     try {
-                        do {
 
-                            System.out.println(gps.lesFilms());
-                            int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
-                            int jour;
-                            int heures;
-                            int minutes;
-                            String lesSeances = gps.lesSeancesFilm(idFilm);
-                            if (lesSeances != null) {
+                        System.out.println(gps.lesFilms());
+                        int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
+                        int jour;
+                        int heures;
+                        int minutes;
+                        String lesSeances = gps.lesSeancesFilm(idFilm);
+                        if (lesSeances != null) {
+                            do {
+
                                 System.out.println(lesSeances);
 
                                 jour = Console.saisieUtilisateurNumeric("jour: ");
                                 heures = Console.saisieUtilisateurNumeric("heures: ");
                                 minutes = Console.saisieUtilisateurNumeric("minutes: ");
                             }
-                            while (gps.existeSeanceFilm(idFilm, jour, heures, minutes)) ;
+                            while (gps.existeSeanceFilm(idFilm, jour, heures, minutes));
 
                             System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
 
@@ -161,7 +162,7 @@ public class Main {
 
                             System.out.println("Le nombre de places standard disponibles : " + gps.getNbPlacesDispo(idPiece, jour));
                             System.out.println("");
-                            System.out.println("Le nombre de fauteuils disponibles : " + gps.getNbFauteuilsDispo(idPiece,jour));
+                            System.out.println("Le nombre de fauteuils disponibles : " + gps.getNbFauteuilsDispo(idPiece, jour));
                             System.out.println("");
                             int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places standard : ");
                             int nbFauteuils = Console.saisieUtilisateurNumeric("nombre de fauteuils : ");
