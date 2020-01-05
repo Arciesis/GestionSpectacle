@@ -51,8 +51,8 @@ public class Main {
                         System.out.println(gps.lesPieces());
                         System.out.println(gps.lesFilms());
                         System.out.println();
-                        String interprete = Console.saisieUtilisateur("interprete: ");
                         int numSpectacle = Console.saisieUtilisateurNumeric("numero du spectacle: ");
+                        String interprete = Console.saisieUtilisateur("interprete: ");
                         gps.ajouterInterprete(numSpectacle, interprete);
 
                         System.out.println();
@@ -90,15 +90,18 @@ public class Main {
                             System.out.println();
                             int idPiece = Console.saisieUtilisateurNumeric("idPiece: ");
                             int jour = Console.saisieUtilisateurNumeric("jour de diffusion: ");
-                            int hd = Console.saisieUtilisateurNumeric("heure de debut: ");
-                            int md = Console.saisieUtilisateurNumeric("minutes de debut: ");
-                            int idSalle = Console.saisieUtilisateurNumeric("id de la salle: ");
+                            if (!gps.existeSeanceCeJour(idPiece, jour)) {
+                                int hd = Console.saisieUtilisateurNumeric("heure de debut: ");
+                                int md = Console.saisieUtilisateurNumeric("minutes de debut: ");
+                                int idSalle = Console.saisieUtilisateurNumeric("id de la salle: ");
 
-                            gps.ajouterSeanceTheatre(idPiece, jour, new Horaire(hd, md), idSalle);
-                            System.out.println();
-                            System.out.println("Seance ajoute");
-                            System.out.println();
+                                gps.ajouterSeanceTheatre(idPiece, jour, new Horaire(hd, md), idSalle);
+                                System.out.println();
+                                System.out.println("Seance ajoute");
+                                System.out.println();
+                            } else System.out.println("Il existe deja une seance programmee ce jour");
                         }
+
                     } catch (IllegalArgumentException | IllegalStateException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
