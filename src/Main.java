@@ -1,7 +1,7 @@
 
 public class Main {
     public static void main(String args[]) {
-        1GestionProgrammationSemaine gps = new GestionProgrammationSemaine();
+        GestionProgrammationSemaine gps = new GestionProgrammationSemaine();
         int choixUtilisateur = -1;
         do {
             Console.affMenu();
@@ -117,7 +117,7 @@ public class Main {
                             int heures = Console.saisieUtilisateurNumeric("heures: ");
                             int minutes = Console.saisieUtilisateurNumeric("minutes: ");
 
-                            System.out.println(gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
+                            System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
 
                             int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
                             int mbPlacesTarifsReduit = Console.saisieUtilisateurNumeric("nombre de places tarif reduit: ");
@@ -145,7 +145,7 @@ public class Main {
 
                             int jour = Console.saisieUtilisateurNumeric("jour: ");
 
-                            System.out.println("Nombre de places restantes" + gps.getNbPlacesDispo(idPiece, jour));
+                            System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idPiece, jour));
 
                             int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
                             int nbFauteuils = Console.saisieUtilisateurNumeric("nombre de fauteuils: ");
