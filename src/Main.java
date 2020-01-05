@@ -117,20 +117,31 @@ public class Main {
 
                         System.out.println(gps.lesFilms());
                         int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
+                        boolean testIdFilm = false;
+                        boolean testExisteSeance;
                         int jour;
                         int heures;
                         int minutes;
                         String lesSeances = gps.lesSeancesFilm(idFilm);
                         if (lesSeances != null) {
                             do {
+                                if (testIdFilm) {
+                                    idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
+                                    testIdFilm = true;
+                                }
 
                                 System.out.println(lesSeances);
 
                                 jour = Console.saisieUtilisateurNumeric("jour: ");
                                 heures = Console.saisieUtilisateurNumeric("heures: ");
                                 minutes = Console.saisieUtilisateurNumeric("minutes: ");
-                            }
-                            while (gps.existeSeanceFilm(idFilm, jour, heures, minutes));
+
+                                testExisteSeance =gps.existeSeanceFilm(idFilm, jour, heures, minutes);
+                                if (testExisteSeance){
+                                    testIdFilm = true;
+                                }
+
+                            } while (!testExisteSeance && testIdFilm);
 
                             System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
 
@@ -139,7 +150,7 @@ public class Main {
 
                             gps.vendrePlaceFilmTN(idFilm, jour, new Horaire(heures, minutes), nbPlacesTN);
                             gps.vendrePlaceFilmTR(idFilm, jour, new Horaire(heures, minutes), nbPlacesTarifsReduit);
-0
+
                             System.out.println("Places achetees");
 
                         } else System.out.println("Aucune Seance");
