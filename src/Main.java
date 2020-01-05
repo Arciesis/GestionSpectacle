@@ -98,13 +98,12 @@ public class Main {
                                 gps.ajouterSeanceTheatre(idPiece, jour, new Horaire(hd, md), idSalle);
                                 System.out.println();
                                 System.out.println("Seance ajoute");
-                                System.out.println();
                             } else {
                                 System.out.println();
                                 System.out.println("Il existe deja une seance programmee ce jour");
-                                System.out.println();
 
                             }
+                            System.out.println();
                         }
 
                     } catch (IllegalArgumentException | IllegalStateException e) {
@@ -115,20 +114,22 @@ public class Main {
                     break;
                 case 6:
                     try {
-                        System.out.println(gps.lesFilms());
-                        int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
-                        int jour;
-                        int heures;
-                        int minutes;
-                        String lesSeances = gps.lesSeancesFilm(idFilm);
-                        if (lesSeances != null) {
-                            do {
+                        do {
+
+                            System.out.println(gps.lesFilms());
+                            int idFilm = Console.saisieUtilisateurNumeric("idFilm: ");
+                            int jour;
+                            int heures;
+                            int minutes;
+                            String lesSeances = gps.lesSeancesFilm(idFilm);
+                            if (lesSeances != null) {
                                 System.out.println(lesSeances);
 
                                 jour = Console.saisieUtilisateurNumeric("jour: ");
                                 heures = Console.saisieUtilisateurNumeric("heures: ");
                                 minutes = Console.saisieUtilisateurNumeric("minutes: ");
-                            } while (gps.existeSeanceFilm(idFilm,jour,heures,minutes));
+                            }
+                            while (gps.existeSeanceFilm(idFilm, jour, heures, minutes)) ;
 
                             System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idFilm, jour, heures, minutes));
 
@@ -196,8 +197,5 @@ public class Main {
             }
 
         } while (choixUtilisateur != 9);
-
-
     }
-
 }
