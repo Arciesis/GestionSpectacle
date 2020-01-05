@@ -79,7 +79,7 @@ public class Console {
      * @param question la question qui doit etre posee a l'utilisateur
      * @return le choix de l'utilisateur
      */
-    public static int saisieUtilisateurNumeric(String question) {
+    public static int saisieUtilisateurNumeric(String question) throws IllegalArgumentException{
         String choixUtilisateur = "";
         String validation = "";
         int choixDefinitif = -1;
@@ -91,6 +91,8 @@ public class Console {
                 estValide = estUneEntreeEntiere(choixUtilisateur);
                 if (estValide)
                     choixDefinitif = Integer.parseInt(choixUtilisateur);
+                else
+                    throw new IllegalArgumentException("entrer non entiere");
                 System.out.println("vaildez vous ce choix ? (o/n)");
                 if (sc.hasNext()) {
                     validation = sc.nextLine();
