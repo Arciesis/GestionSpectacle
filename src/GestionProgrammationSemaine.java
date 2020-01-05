@@ -32,10 +32,10 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         Salle s3 = new Salle("salle n3", 250, 10.70);
         Salle s4 = new Salle("salle n4", 250, 10.70);
 
-        SalleTheatre st1 = new SalleTheatre("teatre n1", 170, 30.5, 35, 50.0);
-        SalleTheatre st2 = new SalleTheatre("teatre n2", 170, 30.5, 35, 50.0);
-        SalleTheatre st3 = new SalleTheatre("teatre n3", 170, 30.5, 35, 50.0);
-        SalleTheatre st4 = new SalleTheatre("teatre n4", 170, 30.5, 35, 50.0);
+        SalleTheatre st1 = new SalleTheatre("teatre n1", 50, 30.5, 25, 50.0);
+        SalleTheatre st2 = new SalleTheatre("teatre n2", 50, 30.5, 25, 50.0);
+        SalleTheatre st3 = new SalleTheatre("teatre n3", 50, 30.5, 25, 50.0);
+        SalleTheatre st4 = new SalleTheatre("teatre n4", 50, 30.5, 25, 50.0);
 
 
         this.lesSalles = new TreeMap<Integer, Salle>();
