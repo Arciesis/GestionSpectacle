@@ -37,6 +37,9 @@ public class Console {
         return Integer.parseInt(str);
     }
 
+    /**
+     * Affiche le menu des choix
+     */
     public static void affMenu() {
         System.out.println("0 : Reinitialiser programmation");
         System.out.println("1 : ajouter un film");
@@ -50,6 +53,11 @@ public class Console {
         System.out.println("9 : quitter");
     }
 
+    /**
+     * methide de verification de l'entree saisie par l'utilisateur
+     * @param question la question qui doit etre posee a l'utilisateur
+     * @return le choix de l'utilisateur
+     */
     public static String saisieUtilisateur(String question) {
         String choixUtilisateur = "";
         String validation = "";
@@ -66,7 +74,11 @@ public class Console {
         return choixUtilisateur;
     }
 
-
+    /**
+     * methide de verification que l'entree saisie par l'utilisateur est une entree numerique
+     * @param question la question qui doit etre posee a l'utilisateur
+     * @return le choix de l'utilisateur
+     */
     public static int saisieUtilisateurNumeric(String question) {
         String choixUtilisateur = "";
         String validation = "";
@@ -88,6 +100,11 @@ public class Console {
         return choixDefinitif;
     }
 
+    /**
+     * Verification qu'il existe des seances de films et affiche le bon message en consequant
+     * @param gps GestionProgrammationSemaine
+     * @return true si il existe des seances et false sinon
+     */
     public static boolean affAjouterSeanceFilm(GestionProgrammationSemaine gps) {
         if (!gps.lesFilms().equalsIgnoreCase("Les films présents sont : { }")) {
             System.out.println(gps.lesFilms());
@@ -98,6 +115,11 @@ public class Console {
         }
     }
 
+    /**
+     * Verification qu'il existe des seances de piece de theatre et affiche le bon message en consequant
+     * @param gps GestionProgrammationSemaine
+     * @return true si il existe des seances et false sinon
+     */
     public static boolean affAjouterSeancePieceTheatre(GestionProgrammationSemaine gps){
         if (!gps.lesPieces().equalsIgnoreCase("Les Pièces de théatre présentes sont : { }")){
             System.out.println(gps.lesPieces());
