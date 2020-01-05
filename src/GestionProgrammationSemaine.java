@@ -32,10 +32,10 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
         Salle s3 = new Salle("salle n3", 250, 10.70);
         Salle s4 = new Salle("salle n4", 250, 10.70);
 
-        SalleTheatre st1 = new SalleTheatre("teatre n1", 50, 30.5, 25, 50.0);
-        SalleTheatre st2 = new SalleTheatre("teatre n2", 50, 30.5, 25, 50.0);
-        SalleTheatre st3 = new SalleTheatre("teatre n3", 50, 30.5, 25, 50.0);
-        SalleTheatre st4 = new SalleTheatre("teatre n4", 50, 30.5, 25, 50.0);
+        SalleTheatre st1 = new SalleTheatre("teatre n1", 75, 30.5, 25, 50.0);
+        SalleTheatre st2 = new SalleTheatre("teatre n2", 75, 30.5, 25, 50.0);
+        SalleTheatre st3 = new SalleTheatre("teatre n3", 75, 30.5, 25, 50.0);
+        SalleTheatre st4 = new SalleTheatre("teatre n4", 75, 30.5, 25, 50.0);
 
 
         this.lesSalles = new TreeMap<Integer, Salle>();
@@ -640,7 +640,7 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
 
         Iterator<Integer> iterator2 = this.lesSallesTheatres.keySet().iterator();
         while(iterator2.hasNext()){
-            int idSalleTheatre = iterator2.next();
+            int idSalleTheatre = iterator1.next();
             SalleTheatre salleTheatre = this.lesSallesTheatres.get(idSalleTheatre);
             salleTheatre.getLesCreneauxOccupes().clear();
         }
@@ -687,8 +687,9 @@ public class GestionProgrammationSemaine implements IProgrammationSemaine {
             if (this.existeSeanceCeJour(idPiece, jour)) {
 
                 int nbPlacesTotal = maSeance.getLaSalleTheatre().getPlaces();
-                int placesVendues = maSeance.getNbPlacesVenduesTarifNormal()+maSeance.getFauteuilsVendues();
-                return nbPlacesTotal - placesVendues;
+                int nbplacef = maSeance.getLaSalleTheatre().getNbFauteuils();
+                int placesVendues = maSeance.getNbPlacesVenduesTarifNormal();
+                return nbPlacesTotal - nbplacef - placesVendues ;
 
             } else throw new IllegalArgumentException("Seance inexistante");
         } else throw new IllegalArgumentException("Piece inexistante");

@@ -158,10 +158,12 @@ public class Main {
 
                             int jour = Console.saisieUtilisateurNumeric("jour: ");
 
-                            System.out.println("Le nombre de places disponibles dans la salle : " + gps.getNbPlacesDispo(idPiece, jour));
-
-                            int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places tarif normal: ");
-                            int nbFauteuils = Console.saisieUtilisateurNumeric("nombre de fauteuils: ");
+                            System.out.println("Le nombre de places standard disponibles : " + gps.getNbPlacesDispo(idPiece, jour));
+                            System.out.println("");
+                            System.out.println("Le nombre de fauteuils disponibles : " + gps.getNbFauteuilsDispo(idPiece,jour));
+                            System.out.println("");
+                            int nbPlacesTN = Console.saisieUtilisateurNumeric("nombre de places standard : ");
+                            int nbFauteuils = Console.saisieUtilisateurNumeric("nombre de fauteuils : ");
 
                             gps.vendrePlacePieceTN(idPiece, jour, nbPlacesTN);
                             gps.vendrePlaceFauteuilPiece(idPiece, jour, nbFauteuils);
