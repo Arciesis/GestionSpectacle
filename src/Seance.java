@@ -1,5 +1,5 @@
 
-public class Seance  {
+public abstract class Seance {
 
     /**
      * champ le creneau representant le creneau sur lequelle la seance se deroule
@@ -63,15 +63,15 @@ public class Seance  {
      *
      * @return 0
      */
-    public double tauxRemplissage() {
-        return 0;
-    }
+    public abstract double tauxRemplissage();
+
 
     /**
      *
      * @return 0
      */
-    public double chiffreAffaire(){
-        return 0;
-    }
+    public abstract double chiffreAffaire();
+
+    public abstract int compareTo(Seance seance);
+
 }

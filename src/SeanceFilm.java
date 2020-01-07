@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class SeanceFilm extends Seance implements Comparable<SeanceFilm>{
+public class SeanceFilm extends Seance implements Comparable<Seance>{
 
     /**
      * champ representant la salle de projection du film
@@ -118,13 +118,13 @@ public class SeanceFilm extends Seance implements Comparable<SeanceFilm>{
      * @param seanceFilm
      * @return Compare les séances films entre elles
      */
-    public int compareTo(SeanceFilm seanceFilm) {
-        if ( this.getLaSalle().getNuméro() != seanceFilm.getLaSalle().getNuméro())  {
+    public int compareTo(Seance seanceFilm) {
+        if ( this.getLaSalle().getNuméro() != ((SeanceFilm)seanceFilm).getLaSalle().getNuméro())  {
             return 1;
         }else {
-            if (this.leCreneau.getJour() < seanceFilm.leCreneau.getJour()) {
+            if (this.leCreneau.getJour() < ((SeanceFilm)seanceFilm).leCreneau.getJour()) {
                 return -1;
-            } else if (this.leCreneau.getJour() > seanceFilm.leCreneau.getJour()) {
+            } else if (this.leCreneau.getJour() > ((SeanceFilm)seanceFilm).leCreneau.getJour()) {
                 return 1;
             } else {
                 if (this.leCreneau.getHeureDebut().getHeures() == seanceFilm.leCreneau.getHeureFin().getHeures()) {

@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Console {
     public static Scanner sc = new Scanner(System.in);
 
+
     /**
      * Test si une String ne comporte seulement des entiers
      *

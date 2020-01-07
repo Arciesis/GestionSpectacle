@@ -1,4 +1,4 @@
-public class SeanceTheatre extends Seance implements Comparable<SeanceTheatre> {
+public class SeanceTheatre extends Seance implements Comparable<Seance> {
 
     /**
      * champ represtant la salle de theatre
@@ -112,13 +112,13 @@ public class SeanceTheatre extends Seance implements Comparable<SeanceTheatre> {
      * @param seanceTheatre
      * @return Compare les séanceTheatre entre elles
      */
-    public int compareTo(SeanceTheatre seanceTheatre) {
-        if (this.getLaSalleTheatre().getNuméro() != seanceTheatre.getLaSalleTheatre().getNuméro()) {
+    public int compareTo(Seance seanceTheatre) {
+        if (this.getLaSalleTheatre().getNuméro() != ((SeanceTheatre)seanceTheatre).getLaSalleTheatre().getNuméro()) {
             return 1;
         } else {
-            if (this.leCreneau.getJour() < seanceTheatre.leCreneau.getJour()) {
+            if (this.leCreneau.getJour() < ((SeanceTheatre)seanceTheatre).leCreneau.getJour()) {
                 return -1;
-            } else if (this.leCreneau.getJour() > seanceTheatre.leCreneau.getJour()) {
+            } else if (this.leCreneau.getJour() > ((SeanceTheatre)seanceTheatre).leCreneau.getJour()) {
                 return 1;
             } else {
                 if (this.leCreneau.getHeureDebut().getHeures() == seanceTheatre.leCreneau.getHeureFin().getHeures()) {
